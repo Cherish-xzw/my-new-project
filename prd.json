@@ -1,0 +1,2973 @@
+{
+  "version": "1.0",
+  "project": "Claude.ai Clone",
+  "branchName": "ralph/implementation",
+  "stories": [
+    {
+      "id": "US-001",
+      "title": "User can send a text message and receive a streaming response from Claude API",
+      "description": "User can send a text message and receive a streaming response from Claude API",
+      "priority": 1,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify the application loads with welcome screen",
+        "Type 'Hello, how are you?' in the input field",
+        "Press Enter or click the send button",
+        "Verify the user message appears in chat immediately"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "Streaming response can be stopped mid-generation",
+      "description": "Streaming response can be stopped mid-generation",
+      "priority": 2,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Type a request for a long response (e.g., 'Write a 500 word essay about AI')",
+        "Press Enter to send",
+        "Verify streaming begins"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Markdown rendering in assistant messages works correctly",
+      "description": "Markdown rendering in assistant messages works correctly",
+      "priority": 3,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'Explain the differences between let, const, and var in JavaScript'",
+        "Wait for response completion",
+        "Verify response contains properly rendered headings"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Code blocks have syntax highlighting and copy functionality",
+      "description": "Code blocks have syntax highlighting and copy functionality",
+      "priority": 4,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'Write a Python function to calculate fibonacci numbers'",
+        "Wait for response with code block",
+        "Verify code block has syntax highlighting"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Input textarea auto-resizes as user types",
+      "description": "Input textarea auto-resizes as user types",
+      "priority": 5,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify initial textarea has default single-line height",
+        "Type a short message (under 60 characters)",
+        "Verify textarea remains single line",
+        "Type until reaching end of line"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "Shift+Enter inserts newline, Enter submits message",
+      "description": "Shift+Enter inserts newline, Enter submits message",
+      "priority": 6,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Click on input field to focus",
+        "Type 'Line 1'",
+        "Press Shift+Enter",
+        "Verify cursor moves to new line"
+      ]
+    },
+    {
+      "id": "US-007",
+      "title": "Character count and token estimation displays correctly",
+      "description": "Character count and token estimation displays correctly",
+      "priority": 7,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify character count is visible near input",
+        "Verify initial count shows 0 or empty",
+        "Type a single character",
+        "Verify character count updates to 1"
+      ]
+    },
+    {
+      "id": "US-008",
+      "title": "Image upload and display in messages",
+      "description": "Image upload and display in messages",
+      "priority": 8,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Click the attachment button (image icon)",
+        "Select an image file from local filesystem",
+        "Verify image thumbnail appears in input area"
+      ]
+    },
+    {
+      "id": "US-009",
+      "title": "Multi-turn conversation maintains context",
+      "description": "Multi-turn conversation maintains context",
+      "priority": 9,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'My name is John'",
+        "Wait for response",
+        "Send message: 'What is my name?'"
+      ]
+    },
+    {
+      "id": "US-010",
+      "title": "Message editing functionality works",
+      "description": "Message editing functionality works",
+      "priority": 10,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'Hello world'",
+        "Wait for response",
+        "Find edit button on user message"
+      ]
+    },
+    {
+      "id": "US-011",
+      "title": "Message regeneration functionality works",
+      "description": "Message regeneration functionality works",
+      "priority": 11,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'Give me a random number between 1 and 10'",
+        "Wait for response and note the number",
+        "Find regenerate button on assistant message"
+      ]
+    },
+    {
+      "id": "US-012",
+      "title": "New conversation creation works",
+      "description": "New conversation creation works",
+      "priority": 12,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify welcome screen or existing conversations",
+        "Click 'New Chat' button",
+        "Verify new conversation is started",
+        "Verify welcome screen appears for new conversation"
+      ]
+    },
+    {
+      "id": "US-013",
+      "title": "Conversation list displays with date grouping",
+      "description": "Conversation list displays with date grouping",
+      "priority": 13,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create multiple conversations (3+) over time",
+        "Refresh the page",
+        "Verify conversations appear in sidebar",
+        "Verify 'Today' section contains today's conversations"
+      ]
+    },
+    {
+      "id": "US-014",
+      "title": "Conversation switching preserves state",
+      "description": "Conversation switching preserves state",
+      "priority": 14,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create conversation A and add messages",
+        "Create conversation B and add different messages",
+        "Click on conversation A in sidebar",
+        "Verify messages from conversation A are displayed"
+      ]
+    },
+    {
+      "id": "US-015",
+      "title": "Conversation rename via inline editing",
+      "description": "Conversation rename via inline editing",
+      "priority": 15,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Verify default auto-generated title",
+        "Hover over conversation title in main area",
+        "Verify edit icon appears"
+      ]
+    },
+    {
+      "id": "US-016",
+      "title": "Conversation deletion with confirmation",
+      "description": "Conversation deletion with confirmation",
+      "priority": 16,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Add some messages",
+        "Find delete option (context menu or button)",
+        "Click delete option"
+      ]
+    },
+    {
+      "id": "US-017",
+      "title": "Conversation search filters list in real-time",
+      "description": "Conversation search filters list in real-time",
+      "priority": 17,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create multiple conversations with different topics",
+        "Type in search box: 'Type something unique that exists'",
+        "Verify search input receives focus",
+        "Type partial match of existing conversation title"
+      ]
+    },
+    {
+      "id": "US-018",
+      "title": "Pin important conversations",
+      "description": "Pin important conversations",
+      "priority": 18,
+      "passes": true,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create multiple conversations",
+        "Right-click on a conversation",
+        "Verify context menu shows 'Pin' option",
+        "Click 'Pin' option"
+      ]
+    },
+    {
+      "id": "US-019",
+      "title": "Archive conversations",
+      "description": "Archive conversations",
+      "priority": 19,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a conversation",
+        "Right-click on conversation",
+        "Select 'Archive' option",
+        "Verify conversation disappears from main list"
+      ]
+    },
+    {
+      "id": "US-020",
+      "title": "Duplicate conversation",
+      "description": "Duplicate conversation",
+      "priority": 20,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a conversation with messages",
+        "Right-click on conversation",
+        "Select 'Duplicate' option",
+        "Verify new conversation is created"
+      ]
+    },
+    {
+      "id": "US-021",
+      "title": "Export conversation to JSON format",
+      "description": "Export conversation to JSON format",
+      "priority": 21,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a conversation with messages",
+        "Click export option on conversation",
+        "Select 'JSON' format",
+        "Verify download initiates"
+      ]
+    },
+    {
+      "id": "US-022",
+      "title": "Export conversation to Markdown format",
+      "description": "Export conversation to Markdown format",
+      "priority": 22,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a conversation with messages",
+        "Click export option on conversation",
+        "Select 'Markdown' format",
+        "Verify download initiates"
+      ]
+    },
+    {
+      "id": "US-023",
+      "title": "Project creation and management",
+      "description": "Project creation and management",
+      "priority": 23,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find project selector or 'New Project' button",
+        "Click to create new project",
+        "Enter project name",
+        "Optionally set project color"
+      ]
+    },
+    {
+      "id": "US-024",
+      "title": "Project-specific custom instructions",
+      "description": "Project-specific custom instructions",
+      "priority": 24,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a new project",
+        "Open project settings",
+        "Find custom instructions field",
+        "Add custom instructions: 'Always respond in Spanish'"
+      ]
+    },
+    {
+      "id": "US-025",
+      "title": "Move conversations between projects",
+      "description": "Move conversations between projects",
+      "priority": 25,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create project A and project B",
+        "Create conversation in project A",
+        "Right-click on conversation",
+        "Select 'Move to Project' option"
+      ]
+    },
+    {
+      "id": "US-026",
+      "title": "Model selection with Claude Sonnet 4.5",
+      "description": "Model selection with Claude Sonnet 4.5",
+      "priority": 26,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Find model selector dropdown",
+        "Verify default model is Claude Sonnet 4.5",
+        "Click on model selector"
+      ]
+    },
+    {
+      "id": "US-027",
+      "title": "Model selection with Claude Haiku 4.5",
+      "description": "Model selection with Claude Haiku 4.5",
+      "priority": 27,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Click on model selector dropdown",
+        "Select 'Claude Haiku 4.5'",
+        "Verify selection is saved"
+      ]
+    },
+    {
+      "id": "US-028",
+      "title": "Model selection with Claude Opus 4.1",
+      "description": "Model selection with Claude Opus 4.1",
+      "priority": 28,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Click on model selector dropdown",
+        "Select 'Claude Opus 4.1'",
+        "Verify selection is saved"
+      ]
+    },
+    {
+      "id": "US-029",
+      "title": "Switch model mid-conversation",
+      "description": "Switch model mid-conversation",
+      "priority": 29,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start conversation with Claude Sonnet 4.5",
+        "Send message: 'What is 2+2?'",
+        "Wait for response",
+        "Switch model to Claude Opus 4.1"
+      ]
+    },
+    {
+      "id": "US-030",
+      "title": "Model capabilities display on hover",
+      "description": "Model capabilities display on hover",
+      "priority": 30,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Click on model selector",
+        "Hover over Claude Sonnet 4.5 option",
+        "Verify tooltip shows capabilities",
+        "Verify context window info is displayed"
+      ]
+    },
+    {
+      "id": "US-031",
+      "title": "Global custom instructions are applied",
+      "description": "Global custom instructions are applied",
+      "priority": 31,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find custom instructions section",
+        "Add global instruction: 'Always sign responses with -AI'",
+        "Save settings"
+      ]
+    },
+    {
+      "id": "US-032",
+      "title": "Conversation-specific system prompt override",
+      "description": "Conversation-specific system prompt override",
+      "priority": 32,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Find conversation settings (gear icon or menu)",
+        "Find system prompt field",
+        "Enter custom system prompt: 'You are a pirate. Speak like a pirate.'"
+      ]
+    },
+    {
+      "id": "US-033",
+      "title": "Theme selection: Light mode",
+      "description": "Theme selection: Light mode",
+      "priority": 33,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find theme selection",
+        "Select 'Light' theme",
+        "Verify background is white (#FFFFFF or #F5F5F5)"
+      ]
+    },
+    {
+      "id": "US-034",
+      "title": "Theme selection: Dark mode",
+      "description": "Theme selection: Dark mode",
+      "priority": 34,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find theme selection",
+        "Select 'Dark' theme",
+        "Verify background is dark (#1A1A1A)"
+      ]
+    },
+    {
+      "id": "US-035",
+      "title": "Theme selection: Auto mode follows system preference",
+      "description": "Theme selection: Auto mode follows system preference",
+      "priority": 35,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Select 'Auto' theme",
+        "Verify theme matches system preference",
+        "Change system theme to dark"
+      ]
+    },
+    {
+      "id": "US-036",
+      "title": "Font size adjustment setting",
+      "description": "Font size adjustment setting",
+      "priority": 36,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find font size option",
+        "Verify current size is indicated",
+        "Increase font size"
+      ]
+    },
+    {
+      "id": "US-037",
+      "title": "Message density settings work",
+      "description": "Message density settings work",
+      "priority": 37,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find message density option",
+        "Select 'Compact' mode",
+        "Verify messages have reduced spacing"
+      ]
+    },
+    {
+      "id": "US-038",
+      "title": "Code theme selection for syntax highlighting",
+      "description": "Code theme selection for syntax highlighting",
+      "priority": 38,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find code theme option",
+        "Select 'Monokai' or different theme",
+        "Send message: 'Write a JavaScript hello world'"
+      ]
+    },
+    {
+      "id": "US-039",
+      "title": "Temperature control slider adjusts creativity",
+      "description": "Temperature control slider adjusts creativity",
+      "priority": 39,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open conversation settings",
+        "Find temperature control",
+        "Set temperature to 0 (deterministic)",
+        "Send message twice: 'What is 1+1?'"
+      ]
+    },
+    {
+      "id": "US-040",
+      "title": "Max tokens adjustment limits response length",
+      "description": "Max tokens adjustment limits response length",
+      "priority": 40,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open conversation settings",
+        "Find max tokens setting",
+        "Set max tokens to 50",
+        "Send message: 'Write a long story'"
+      ]
+    },
+    {
+      "id": "US-041",
+      "title": "Top-p (nucleus sampling) control works",
+      "description": "Top-p (nucleus sampling) control works",
+      "priority": 41,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open conversation settings",
+        "Find top-p control",
+        "Set top-p to 0.1",
+        "Send creative message multiple times"
+      ]
+    },
+    {
+      "id": "US-042",
+      "title": "Artifact detection from Claude response",
+      "description": "Artifact detection from Claude response",
+      "priority": 42,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message: 'Create a simple HTML page with a red button'",
+        "Wait for Claude to generate response",
+        "Verify artifact panel opens automatically"
+      ]
+    },
+    {
+      "id": "US-043",
+      "title": "Code artifact viewer with syntax highlighting",
+      "description": "Code artifact viewer with syntax highlighting",
+      "priority": 43,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start conversation generating code artifact",
+        "Verify artifact panel shows code view",
+        "Verify language is detected correctly",
+        "Verify syntax highlighting is applied"
+      ]
+    },
+    {
+      "id": "US-044",
+      "title": "HTML/SVG preview with live rendering",
+      "description": "HTML/SVG preview with live rendering",
+      "priority": 44,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request HTML artifact: 'Create an SVG of a blue circle'",
+        "Verify artifact panel shows preview tab",
+        "Click preview tab",
+        "Verify SVG renders correctly"
+      ]
+    },
+    {
+      "id": "US-045",
+      "title": "React component preview",
+      "description": "React component preview",
+      "priority": 45,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message: 'Create a simple React counter component'",
+        "Verify artifact type is detected as React",
+        "Verify preview shows rendered component",
+        "Verify increment/decrement buttons work"
+      ]
+    },
+    {
+      "id": "US-046",
+      "title": "Mermaid diagram rendering",
+      "description": "Mermaid diagram rendering",
+      "priority": 46,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message: 'Create a Mermaid flowchart showing a user journey'",
+        "Verify artifact type is detected as Mermaid",
+        "Verify diagram renders correctly",
+        "Verify nodes and edges are displayed properly"
+      ]
+    },
+    {
+      "id": "US-047",
+      "title": "Text document artifacts",
+      "description": "Text document artifacts",
+      "priority": 47,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message: 'Write a short story about a robot'",
+        "Wait for response",
+        "Verify text artifact is created if requested",
+        "Verify artifact shows formatted text"
+      ]
+    },
+    {
+      "id": "US-048",
+      "title": "Artifact editing and re-prompting",
+      "description": "Artifact editing and re-prompting",
+      "priority": 48,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate an HTML artifact",
+        "Edit the HTML code directly",
+        "Find 'Re-prompt' or update button",
+        "Click to send edited code back to Claude"
+      ]
+    },
+    {
+      "id": "US-049",
+      "title": "Full-screen artifact view",
+      "description": "Full-screen artifact view",
+      "priority": 49,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate an artifact",
+        "Find full-screen toggle button",
+        "Click full-screen toggle",
+        "Verify artifact panel expands to full screen"
+      ]
+    },
+    {
+      "id": "US-050",
+      "title": "Artifact download functionality",
+      "description": "Artifact download functionality",
+      "priority": 50,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate a code artifact (e.g., Python file)",
+        "Find download button in artifact panel",
+        "Click download button",
+        "Verify file is downloaded with correct extension"
+      ]
+    },
+    {
+      "id": "US-051",
+      "title": "Artifact versioning and history",
+      "description": "Artifact versioning and history",
+      "priority": 51,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate an artifact",
+        "Edit the artifact code",
+        "Send re-prompt to generate new version",
+        "Find version selector/dropdown"
+      ]
+    },
+    {
+      "id": "US-052",
+      "title": "Folder creation and organization",
+      "description": "Folder creation and organization",
+      "priority": 52,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find create folder option",
+        "Click to create new folder",
+        "Enter folder name",
+        "Save folder"
+      ]
+    },
+    {
+      "id": "US-053",
+      "title": "Conversation sharing via link",
+      "description": "Conversation sharing via link",
+      "priority": 53,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create conversation with messages",
+        "Find share button",
+        "Click share option",
+        "Verify share modal opens"
+      ]
+    },
+    {
+      "id": "US-054",
+      "title": "Share link expiration settings",
+      "description": "Share link expiration settings",
+      "priority": 54,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a conversation",
+        "Open share options",
+        "Set expiration to 1 hour",
+        "Create shareable link"
+      ]
+    },
+    {
+      "id": "US-055",
+      "title": "Revoke shared conversation link",
+      "description": "Revoke shared conversation link",
+      "priority": 55,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create and share a conversation",
+        "Verify share link works",
+        "Open shared conversation management",
+        "Find revoke/disable link option"
+      ]
+    },
+    {
+      "id": "US-056",
+      "title": "Prompt library access and usage",
+      "description": "Prompt library access and usage",
+      "priority": 56,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find prompt library access point",
+        "Click to open prompt library",
+        "Verify library modal or panel opens",
+        "Browse available prompts by category"
+      ]
+    },
+    {
+      "id": "US-057",
+      "title": "Prompt library management",
+      "description": "Prompt library management",
+      "priority": 57,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open prompt library",
+        "Find 'Add Prompt' option",
+        "Create new prompt with title and template",
+        "Set category for prompt"
+      ]
+    },
+    {
+      "id": "US-058",
+      "title": "Command palette (Cmd/Ctrl+K) opens",
+      "description": "Command palette (Cmd/Ctrl+K) opens",
+      "priority": 58,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press Cmd+K (Mac) or Ctrl+K (Windows/Linux)",
+        "Verify command palette opens",
+        "Verify search input is focused",
+        "Type to search commands"
+      ]
+    },
+    {
+      "id": "US-059",
+      "title": "Command palette actions execute correctly",
+      "description": "Command palette actions execute correctly",
+      "priority": 59,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press Cmd+K to open palette",
+        "Type 'New Chat'",
+        "Select 'New Chat' command",
+        "Verify new conversation is started"
+      ]
+    },
+    {
+      "id": "US-060",
+      "title": "Global search across all content",
+      "description": "Global search across all content",
+      "priority": 60,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create conversations with specific searchable content",
+        "Open global search (Cmd+K or search icon)",
+        "Search for text that exists in a message",
+        "Verify matching conversations are found"
+      ]
+    },
+    {
+      "id": "US-061",
+      "title": "Token usage display per message",
+      "description": "Token usage display per message",
+      "priority": 61,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send message and wait for response",
+        "Find token usage indicator",
+        "Verify input tokens are displayed"
+      ]
+    },
+    {
+      "id": "US-062",
+      "title": "Conversation cost estimation",
+      "description": "Conversation cost estimation",
+      "priority": 62,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start conversation with Claude Sonnet",
+        "Send messages",
+        "Find cost estimator",
+        "Verify cost is displayed for current conversation"
+      ]
+    },
+    {
+      "id": "US-063",
+      "title": "Usage dashboard displays statistics",
+      "description": "Usage dashboard displays statistics",
+      "priority": 63,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings or usage section",
+        "Find 'Usage' or 'Analytics' tab",
+        "Click to open usage dashboard",
+        "Verify daily usage chart is displayed"
+      ]
+    },
+    {
+      "id": "US-064",
+      "title": "Usage warnings when approaching limits",
+      "description": "Usage warnings when approaching limits",
+      "priority": 64,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Configure usage limit in settings",
+        "Use application extensively",
+        "Approach configured usage limit",
+        "Verify warning notification appears"
+      ]
+    },
+    {
+      "id": "US-065",
+      "title": "API quota tracking and display",
+      "description": "API quota tracking and display",
+      "priority": 65,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Access API quota settings",
+        "Verify current quota status",
+        "Verify quota limit is displayed",
+        "Verify used quota percentage"
+      ]
+    },
+    {
+      "id": "US-066",
+      "title": "Conversation branching creates new path",
+      "description": "Conversation branching creates new path",
+      "priority": 66,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create conversation with messages",
+        "Find branch/split option on a message",
+        "Click to branch conversation",
+        "Verify new conversation branch is created"
+      ]
+    },
+    {
+      "id": "US-067",
+      "title": "Welcome screen for new users",
+      "description": "Welcome screen for new users",
+      "priority": 67,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173 in fresh browser",
+        "Verify welcome screen appears",
+        "Verify welcome message explains features",
+        "Verify suggested prompts are displayed",
+        "Click on a suggested prompt"
+      ]
+    },
+    {
+      "id": "US-068",
+      "title": "Feature tour highlights for onboarding",
+      "description": "Feature tour highlights for onboarding",
+      "priority": 68,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start application for first time or reset tour",
+        "Verify guided tour tooltip appears",
+        "Verify first feature is highlighted",
+        "Complete the first step"
+      ]
+    },
+    {
+      "id": "US-069",
+      "title": "Keyboard shortcuts reference modal",
+      "description": "Keyboard shortcuts reference modal",
+      "priority": 69,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings or help menu",
+        "Find 'Keyboard Shortcuts' option",
+        "Click to open shortcuts reference",
+        "Verify list of all shortcuts is displayed"
+      ]
+    },
+    {
+      "id": "US-070",
+      "title": "Full keyboard navigation throughout app",
+      "description": "Full keyboard navigation throughout app",
+      "priority": 70,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press Tab to navigate through focusable elements",
+        "Verify focus indicator is visible",
+        "Navigate to send button",
+        "Press Enter to activate"
+      ]
+    },
+    {
+      "id": "US-071",
+      "title": "Sidebar collapse and expand on desktop",
+      "description": "Sidebar collapse and expand on desktop",
+      "priority": 71,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify sidebar is visible by default",
+        "Find sidebar collapse button",
+        "Click collapse button",
+        "Verify sidebar slides out of view"
+      ]
+    },
+    {
+      "id": "US-072",
+      "title": "Mobile responsive layout - single column",
+      "description": "Mobile responsive layout - single column",
+      "priority": 72,
+      "passes": false,
+      "criteria": [
+        "Open browser developer tools",
+        "Set viewport to mobile size (375x667)",
+        "Navigate to http://localhost:5173",
+        "Verify sidebar is hidden by default",
+        "Verify hamburger menu is visible"
+      ]
+    },
+    {
+      "id": "US-073",
+      "title": "Mobile responsive layout - tablet size",
+      "description": "Mobile responsive layout - tablet size",
+      "priority": 73,
+      "passes": false,
+      "criteria": [
+        "Set viewport to tablet size (768x1024)",
+        "Navigate to http://localhost:5173",
+        "Verify sidebar is partially visible or toggleable",
+        "Verify chat area takes most of width",
+        "Verify artifact panel overlays on demand"
+      ]
+    },
+    {
+      "id": "US-074",
+      "title": "Sidebar toggle via hamburger menu on mobile",
+      "description": "Sidebar toggle via hamburger menu on mobile",
+      "priority": 74,
+      "passes": false,
+      "criteria": [
+        "Set viewport to mobile size",
+        "Navigate to http://localhost:5173",
+        "Verify hamburger icon is visible in header",
+        "Tap hamburger icon",
+        "Verify sidebar slides in smoothly"
+      ]
+    },
+    {
+      "id": "US-075",
+      "title": "Accessibility: Screen reader support",
+      "description": "Accessibility: Screen reader support",
+      "priority": 75,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Enable screen reader (VoiceOver/NVDA)",
+        "Navigate to chat input",
+        "Verify input is announced",
+        "Send a message"
+      ]
+    },
+    {
+      "id": "US-076",
+      "title": "Accessibility: ARIA labels and roles",
+      "description": "Accessibility: ARIA labels and roles",
+      "priority": 76,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Use browser accessibility inspector",
+        "Check send button has proper ARIA label",
+        "Check sidebar has proper role and label",
+        "Check conversation items have proper roles"
+      ]
+    },
+    {
+      "id": "US-077",
+      "title": "Accessibility: High contrast mode support",
+      "description": "Accessibility: High contrast mode support",
+      "priority": 77,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Enable high contrast mode in OS settings",
+        "Refresh the application",
+        "Verify high contrast colors are applied",
+        "Verify text is clearly distinguishable"
+      ]
+    },
+    {
+      "id": "US-078",
+      "title": "Accessibility: Reduced motion support",
+      "description": "Accessibility: Reduced motion support",
+      "priority": 78,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Enable reduced motion in OS/accessibility settings",
+        "Refresh the application",
+        "Perform actions that trigger animations",
+        "Verify animations are disabled or minimal"
+      ]
+    },
+    {
+      "id": "US-079",
+      "title": "Focus management for modals",
+      "description": "Focus management for modals",
+      "priority": 79,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press button to open modal (e.g., Settings)",
+        "Verify focus moves to modal",
+        "Verify focus is trapped within modal",
+        "Press Tab within modal"
+      ]
+    },
+    {
+      "id": "US-080",
+      "title": "Settings modal with tabbed interface",
+      "description": "Settings modal with tabbed interface",
+      "priority": 80,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings modal",
+        "Verify General tab is selected by default",
+        "Click on Theme tab",
+        "Verify Theme options are displayed"
+      ]
+    },
+    {
+      "id": "US-081",
+      "title": "Settings persist across sessions",
+      "description": "Settings persist across sessions",
+      "priority": 81,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Change theme to dark mode",
+        "Change font size",
+        "Save and close settings"
+      ]
+    },
+    {
+      "id": "US-082",
+      "title": "Data export from settings",
+      "description": "Data export from settings",
+      "priority": 82,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find data export option",
+        "Click export data",
+        "Verify download of all user data"
+      ]
+    },
+    {
+      "id": "US-083",
+      "title": "Privacy settings management",
+      "description": "Privacy settings management",
+      "priority": 83,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings",
+        "Find privacy section",
+        "Verify options for data sharing",
+        "Toggle opt-in/out options"
+      ]
+    },
+    {
+      "id": "US-084",
+      "title": "Quick actions menu access",
+      "description": "Quick actions menu access",
+      "priority": 84,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find quick actions button (lightning or menu icon)",
+        "Click to open quick actions",
+        "Verify list of quick actions appears",
+        "Select an action like 'New Chat'"
+      ]
+    },
+    {
+      "id": "US-085",
+      "title": "Response suggestions appear",
+      "description": "Response suggestions appear",
+      "priority": 85,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start a new conversation",
+        "Send a message asking a question",
+        "Wait for response",
+        "Verify suggestion chips appear below response"
+      ]
+    },
+    {
+      "id": "US-086",
+      "title": "Related prompts feature",
+      "description": "Related prompts feature",
+      "priority": 86,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start conversation about a topic",
+        "Verify related prompts section appears",
+        "Verify suggestions are contextually relevant",
+        "Click on a related prompt"
+      ]
+    },
+    {
+      "id": "US-087",
+      "title": "Loading state during API calls",
+      "description": "Loading state during API calls",
+      "priority": 87,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message that might take longer",
+        "Verify typing indicator appears immediately",
+        "Verify spinner or loading animation is shown",
+        "Verify input is disabled during loading"
+      ]
+    },
+    {
+      "id": "US-088",
+      "title": "Error handling for network failures",
+      "description": "Error handling for network failures",
+      "priority": 88,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Disconnect from network",
+        "Send a message",
+        "Verify error message is displayed",
+        "Verify error message is user-friendly"
+      ]
+    },
+    {
+      "id": "US-089",
+      "title": "Error handling for API errors",
+      "description": "Error handling for API errors",
+      "priority": 89,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Configure invalid API key",
+        "Send a message",
+        "Verify error message explains the issue",
+        "Verify error doesn't crash the app"
+      ]
+    },
+    {
+      "id": "US-090",
+      "title": "Rate limiting feedback",
+      "description": "Rate limiting feedback",
+      "priority": 90,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send many rapid messages",
+        "Verify rate limiting is applied",
+        "Verify user-friendly message about wait time",
+        "Wait for rate limit to reset"
+      ]
+    },
+    {
+      "id": "US-091",
+      "title": "Conversation timestamps accuracy",
+      "description": "Conversation timestamps accuracy",
+      "priority": 91,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a new conversation",
+        "Verify creation timestamp is accurate",
+        "Add messages over time",
+        "Verify last updated timestamp updates"
+      ]
+    },
+    {
+      "id": "US-092",
+      "title": "API health check endpoint",
+      "description": "API health check endpoint",
+      "priority": 92,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:3001/health (backend)",
+        "Verify health endpoint responds",
+        "Verify JSON response with status",
+        "Verify database connection status",
+        "Verify API key status"
+      ]
+    },
+    {
+      "id": "US-093",
+      "title": "Backend CORS configuration",
+      "description": "Backend CORS configuration",
+      "priority": 93,
+      "passes": false,
+      "criteria": [
+        "Verify backend has CORS middleware configured",
+        "Make request from frontend origin",
+        "Verify CORS headers are present",
+        "Verify allowed origins include frontend",
+        "Try request from unauthorized origin"
+      ]
+    },
+    {
+      "id": "US-094",
+      "title": "Database migrations run successfully",
+      "description": "Database migrations run successfully",
+      "priority": 94,
+      "passes": false,
+      "criteria": [
+        "Check database directory exists",
+        "Run database migration script",
+        "Verify all tables are created",
+        "Verify schema matches specification",
+        "Try inserting data into each table"
+      ]
+    },
+    {
+      "id": "US-095",
+      "title": "Authentication endpoints functional",
+      "description": "Authentication endpoints functional",
+      "priority": 95,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/auth/login",
+        "Verify response contains user data",
+        "Send GET to /api/auth/me",
+        "Verify current user data is returned",
+        "Send PUT to /api/auth/profile"
+      ]
+    },
+    {
+      "id": "US-096",
+      "title": "Conversations API CRUD operations",
+      "description": "Conversations API CRUD operations",
+      "priority": 96,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/conversations to create",
+        "Verify conversation is created with ID",
+        "Send GET to /api/conversations",
+        "Verify list of conversations returned",
+        "Send GET to /api/conversations/:id"
+      ]
+    },
+    {
+      "id": "US-097",
+      "title": "Messages API with conversation association",
+      "description": "Messages API with conversation association",
+      "priority": 97,
+      "passes": false,
+      "criteria": [
+        "Create a conversation",
+        "Send POST to /api/conversations/:id/messages",
+        "Verify message is created",
+        "Send GET to /api/conversations/:id/messages",
+        "Verify all messages in conversation"
+      ]
+    },
+    {
+      "id": "US-098",
+      "title": "SSE streaming endpoint functional",
+      "description": "SSE streaming endpoint functional",
+      "priority": 98,
+      "passes": false,
+      "criteria": [
+        "Send GET to /api/messages/stream with conversation ID",
+        "Verify SSE connection is established",
+        "Verify Content-Type is text/event-stream",
+        "Send a message to trigger response",
+        "Verify streaming data events"
+      ]
+    },
+    {
+      "id": "US-099",
+      "title": "Claude API proxy endpoints work",
+      "description": "Claude API proxy endpoints work",
+      "priority": 99,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/claude/chat",
+        "Verify request is proxied to Claude",
+        "Verify response is returned correctly",
+        "Send POST to /api/claude/chat/stream",
+        "Verify streaming response works"
+      ]
+    },
+    {
+      "id": "US-100",
+      "title": "Image upload endpoint",
+      "description": "Image upload endpoint",
+      "priority": 100,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/claude/images/upload",
+        "Include image file in request",
+        "Verify image is processed",
+        "Verify response contains image data",
+        "Verify image can be used in chat"
+      ]
+    },
+    {
+      "id": "US-101",
+      "title": "Projects API endpoints",
+      "description": "Projects API endpoints",
+      "priority": 101,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/projects",
+        "Verify project is created",
+        "Send GET to /api/projects",
+        "Verify projects list",
+        "Send GET to /api/projects/:id"
+      ]
+    },
+    {
+      "id": "US-102",
+      "title": "Project knowledge base endpoint",
+      "description": "Project knowledge base endpoint",
+      "priority": 102,
+      "passes": false,
+      "criteria": [
+        "Create a project",
+        "Send POST to /api/projects/:id/knowledge",
+        "Upload a document",
+        "Verify document is stored",
+        "Create conversation in project"
+      ]
+    },
+    {
+      "id": "US-103",
+      "title": "Artifacts API endpoints",
+      "description": "Artifacts API endpoints",
+      "priority": 103,
+      "passes": false,
+      "criteria": [
+        "Create conversation and trigger artifact",
+        "Send GET to /api/conversations/:id/artifacts",
+        "Verify artifacts list",
+        "Send GET to /api/artifacts/:id",
+        "Verify artifact details"
+      ]
+    },
+    {
+      "id": "US-104",
+      "title": "Artifact forking functionality",
+      "description": "Artifact forking functionality",
+      "priority": 104,
+      "passes": false,
+      "criteria": [
+        "Create an artifact",
+        "Send POST to /api/artifacts/:id/fork",
+        "Verify new artifact is created",
+        "Verify new artifact is copy of original",
+        "Verify new artifact has new ID"
+      ]
+    },
+    {
+      "id": "US-105",
+      "title": "Artifact version history endpoint",
+      "description": "Artifact version history endpoint",
+      "priority": 105,
+      "passes": false,
+      "criteria": [
+        "Create an artifact",
+        "Update the artifact",
+        "Send GET to /api/artifacts/:id/versions",
+        "Verify version list is returned",
+        "Verify each version has timestamp"
+      ]
+    },
+    {
+      "id": "US-106",
+      "title": "Folders API endpoints",
+      "description": "Folders API endpoints",
+      "priority": 106,
+      "passes": false,
+      "criteria": [
+        "Send POST to /api/folders",
+        "Verify folder is created",
+        "Send GET to /api/folders",
+        "Verify folders list with hierarchy",
+        "Send PUT to rename folder"
+      ]
+    },
+    {
+      "id": "US-107",
+      "title": "Folder items management",
+      "description": "Folder items management",
+      "priority": 107,
+      "passes": false,
+      "criteria": [
+        "Create a folder",
+        "Create a conversation",
+        "Send POST to /api/folders/:id/items",
+        "Verify conversation is added to folder",
+        "Send DELETE to /api/folders/:id/items/:conversationId"
+      ]
+    },
+    {
+      "id": "US-108",
+      "title": "Search API endpoints",
+      "description": "Search API endpoints",
+      "priority": 108,
+      "passes": false,
+      "criteria": [
+        "Create conversations with searchable content",
+        "Send GET to /api/search/conversations?q=term",
+        "Verify matching conversations",
+        "Send GET to /api/search/messages?q=term",
+        "Verify matching messages with context"
+      ]
+    },
+    {
+      "id": "US-109",
+      "title": "Usage API endpoints",
+      "description": "Usage API endpoints",
+      "priority": 109,
+      "passes": false,
+      "criteria": [
+        "Send messages and track usage",
+        "Send GET to /api/usage/daily",
+        "Verify daily usage breakdown",
+        "Send GET to /api/usage/monthly",
+        "Verify monthly aggregation"
+      ]
+    },
+    {
+      "id": "US-110",
+      "title": "Settings API endpoints",
+      "description": "Settings API endpoints",
+      "priority": 110,
+      "passes": false,
+      "criteria": [
+        "Send GET to /api/settings",
+        "Verify current settings returned",
+        "Send PUT to /api/settings",
+        "Verify settings are updated",
+        "Send GET to /api/settings/custom-instructions"
+      ]
+    },
+    {
+      "id": "US-111",
+      "title": "Prompt library API endpoints",
+      "description": "Prompt library API endpoints",
+      "priority": 111,
+      "passes": false,
+      "criteria": [
+        "Send GET to /api/prompts/library",
+        "Verify prompts list returned",
+        "Send POST to create new prompt",
+        "Verify prompt is created",
+        "Send GET to /api/prompts/:id"
+      ]
+    },
+    {
+      "id": "US-112",
+      "title": "Prompt categories and examples API",
+      "description": "Prompt categories and examples API",
+      "priority": 112,
+      "passes": false,
+      "criteria": [
+        "Send GET to /api/prompts/categories",
+        "Verify categories list",
+        "Verify each category has name and count",
+        "Send GET to /api/prompts/examples",
+        "Verify example prompts returned"
+      ]
+    },
+    {
+      "id": "US-113",
+      "title": "Main chat layout centered with proper margins",
+      "description": "Main chat layout centered with proper margins",
+      "priority": 113,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open DevTools and inspect chat container",
+        "Verify chat area has max-width constraint",
+        "Verify chat is horizontally centered",
+        "Verify adequate side margins on large screens"
+      ]
+    },
+    {
+      "id": "US-114",
+      "title": "Message bubbles have proper spacing",
+      "description": "Message bubbles have proper spacing",
+      "priority": 114,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start conversation with multiple messages",
+        "Verify user messages are right-aligned",
+        "Verify assistant messages are left-aligned",
+        "Verify consistent vertical spacing between messages"
+      ]
+    },
+    {
+      "id": "US-115",
+      "title": "Color palette matches claude.ai design",
+      "description": "Color palette matches claude.ai design",
+      "priority": 115,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173 in light mode",
+        "Verify primary accent is orange/amber (#CC785C)",
+        "Verify background is white or near-white",
+        "Switch to dark mode",
+        "Verify background is dark (#1A1A1A)"
+      ]
+    },
+    {
+      "id": "US-116",
+      "title": "Typography follows design system",
+      "description": "Typography follows design system",
+      "priority": 116,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Inspect message text styling",
+        "Verify font family is sans-serif system stack",
+        "Verify body text is 16px (text-base)",
+        "Verify proper line height (leading-relaxed)"
+      ]
+    },
+    {
+      "id": "US-117",
+      "title": "Primary button styling matches design",
+      "description": "Primary button styling matches design",
+      "priority": 117,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find primary action buttons (send, create)",
+        "Verify buttons have orange/amber background",
+        "Verify text is white",
+        "Verify buttons are rounded"
+      ]
+    },
+    {
+      "id": "US-118",
+      "title": "Secondary button styling",
+      "description": "Secondary button styling",
+      "priority": 118,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find secondary buttons (cancel, settings)",
+        "Verify buttons have border style",
+        "Verify no fill or light fill",
+        "Hover over button"
+      ]
+    },
+    {
+      "id": "US-119",
+      "title": "Icon button styling",
+      "description": "Icon button styling",
+      "priority": 119,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find icon buttons (sidebar toggle, copy)",
+        "Verify icons are square",
+        "Verify no visible border by default",
+        "Hover over icon button"
+      ]
+    },
+    {
+      "id": "US-120",
+      "title": "Input field styling",
+      "description": "Input field styling",
+      "priority": 120,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find text inputs",
+        "Verify rounded borders",
+        "Verify focus ring is visible",
+        "Click on input"
+      ]
+    },
+    {
+      "id": "US-121",
+      "title": "Card component styling",
+      "description": "Card component styling",
+      "priority": 121,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find card components (conversation items, modals)",
+        "Verify cards have subtle border or shadow",
+        "Verify rounded corners (8px)",
+        "Verify proper padding"
+      ]
+    },
+    {
+      "id": "US-122",
+      "title": "Sidebar styling and layout",
+      "description": "Sidebar styling and layout",
+      "priority": 122,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Inspect sidebar component",
+        "Verify sidebar has proper background",
+        "Verify 'New Chat' button is prominent",
+        "Verify project selector is accessible"
+      ]
+    },
+    {
+      "id": "US-123",
+      "title": "Conversation list item styling",
+      "description": "Conversation list item styling",
+      "priority": 123,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create multiple conversations",
+        "Inspect conversation list items",
+        "Verify items have hover state",
+        "Verify selected item is highlighted"
+      ]
+    },
+    {
+      "id": "US-124",
+      "title": "Modal dialog styling",
+      "description": "Modal dialog styling",
+      "priority": 124,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open a modal (settings, share)",
+        "Verify modal has overlay background",
+        "Verify modal is centered",
+        "Verify modal has rounded corners"
+      ]
+    },
+    {
+      "id": "US-125",
+      "title": "Code block container styling",
+      "description": "Code block container styling",
+      "priority": 125,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate a code block",
+        "Verify code block has dark background",
+        "Verify code has proper padding",
+        "Verify line numbers are styled"
+      ]
+    },
+    {
+      "id": "US-126",
+      "title": "Inline code styling",
+      "description": "Inline code styling",
+      "priority": 126,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find messages with inline code",
+        "Verify inline code has gray background",
+        "Verify inline code has rounded corners",
+        "Verify inline code has monospace font"
+      ]
+    },
+    {
+      "id": "US-127",
+      "title": "Typing indicator animation",
+      "description": "Typing indicator animation",
+      "priority": 127,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send a message",
+        "Verify typing indicator appears",
+        "Verify dots animation is smooth",
+        "Verify animation loops properly"
+      ]
+    },
+    {
+      "id": "US-128",
+      "title": "Loading spinner styling",
+      "description": "Loading spinner styling",
+      "priority": 128,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger a loading state",
+        "Verify spinner is visible",
+        "Verify spinner animation is smooth",
+        "Verify spinner is properly sized"
+      ]
+    },
+    {
+      "id": "US-129",
+      "title": "Fade in animation for new messages",
+      "description": "Fade in animation for new messages",
+      "priority": 129,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send a message",
+        "Verify user message fades in",
+        "Wait for response",
+        "Verify assistant message fades in"
+      ]
+    },
+    {
+      "id": "US-130",
+      "title": "Sidebar slide animation",
+      "description": "Sidebar slide animation",
+      "priority": 130,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Collapse sidebar",
+        "Verify sidebar slides out smoothly",
+        "Verify chat area expands smoothly",
+        "Expand sidebar"
+      ]
+    },
+    {
+      "id": "US-131",
+      "title": "Artifact panel slide animation",
+      "description": "Artifact panel slide animation",
+      "priority": 131,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger artifact generation",
+        "Verify artifact panel slides in from right",
+        "Verify animation is smooth",
+        "Close artifact panel"
+      ]
+    },
+    {
+      "id": "US-132",
+      "title": "Tooltip styling",
+      "description": "Tooltip styling",
+      "priority": 132,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Hover over element with tooltip",
+        "Verify tooltip appears",
+        "Verify tooltip has dark background",
+        "Verify tooltip has white text"
+      ]
+    },
+    {
+      "id": "US-133",
+      "title": "Dropdown menu styling",
+      "description": "Dropdown menu styling",
+      "priority": 133,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open a dropdown (model selector)",
+        "Verify dropdown has shadow",
+        "Verify items have hover state",
+        "Verify selected item is highlighted"
+      ]
+    },
+    {
+      "id": "US-134",
+      "title": "Badge styling for model indicator",
+      "description": "Badge styling for model indicator",
+      "priority": 134,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Verify model badge is visible",
+        "Verify badge has pill shape",
+        "Verify badge has subtle background",
+        "Verify text is readable"
+      ]
+    },
+    {
+      "id": "US-135",
+      "title": "Context menu styling",
+      "description": "Context menu styling",
+      "priority": 135,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Right-click on conversation",
+        "Verify context menu appears",
+        "Verify menu has shadow",
+        "Verify items have icons"
+      ]
+    },
+    {
+      "id": "US-136",
+      "title": "Empty state styling",
+      "description": "Empty state styling",
+      "priority": 136,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create new conversation",
+        "Verify welcome/empty state is shown",
+        "Verify empty state is centered",
+        "Verify illustration or icon is present"
+      ]
+    },
+    {
+      "id": "US-137",
+      "title": "Notification toast styling",
+      "description": "Notification toast styling",
+      "priority": 137,
+      "passes": false,
+      "criteria": [
+        "Trigger an action that shows notification",
+        "Verify toast appears",
+        "Verify toast has proper styling",
+        "Verify toast auto-dismisses",
+        "Verify dismiss button is styled"
+      ]
+    },
+    {
+      "id": "US-138",
+      "title": "Progress bar styling",
+      "description": "Progress bar styling",
+      "priority": 138,
+      "passes": false,
+      "criteria": [
+        "Navigate to usage dashboard",
+        "Verify progress bars are visible",
+        "Verify bar has rounded ends",
+        "Verify fill uses primary color",
+        "Verify percentage label is visible"
+      ]
+    },
+    {
+      "id": "US-139",
+      "title": "Slider/input range styling",
+      "description": "Slider/input range styling",
+      "priority": 139,
+      "passes": false,
+      "criteria": [
+        "Navigate to temperature settings",
+        "Find slider control",
+        "Verify track styling",
+        "Verify thumb styling",
+        "Drag slider"
+      ]
+    },
+    {
+      "id": "US-140",
+      "title": "Tabs styling in settings",
+      "description": "Tabs styling in settings",
+      "priority": 140,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings modal",
+        "Find tab navigation",
+        "Verify active tab is highlighted",
+        "Verify inactive tabs are styled differently"
+      ]
+    },
+    {
+      "id": "US-141",
+      "title": "Checkbox and toggle styling",
+      "description": "Checkbox and toggle styling",
+      "priority": 141,
+      "passes": false,
+      "criteria": [
+        "Navigate to settings with toggles",
+        "Find toggle switches",
+        "Verify off state styling",
+        "Click to toggle on",
+        "Verify on state styling"
+      ]
+    },
+    {
+      "id": "US-142",
+      "title": "Avatar and profile styling",
+      "description": "Avatar and profile styling",
+      "priority": 142,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find user avatar in sidebar",
+        "Verify avatar is circular",
+        "Verify avatar has border",
+        "Verify initials fallback is styled"
+      ]
+    },
+    {
+      "id": "US-143",
+      "title": "Divider and separator styling",
+      "description": "Divider and separator styling",
+      "priority": 143,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find dividers in UI",
+        "Verify divider has subtle color",
+        "Verify divider has proper thickness",
+        "Verify dividers are used appropriately"
+      ]
+    },
+    {
+      "id": "US-144",
+      "title": "Responsive typography scaling",
+      "description": "Responsive typography scaling",
+      "priority": 144,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173 on mobile",
+        "Verify text is readable without zooming",
+        "Verify headings scale appropriately",
+        "Verify body text maintains readability",
+        "Switch to tablet"
+      ]
+    },
+    {
+      "id": "US-145",
+      "title": "Touch target sizes on mobile",
+      "description": "Touch target sizes on mobile",
+      "priority": 145,
+      "passes": false,
+      "criteria": [
+        "Set viewport to mobile size",
+        "Navigate to http://localhost:5173",
+        "Use touch simulation in DevTools",
+        "Verify send button is at least 44x44px",
+        "Verify sidebar toggle is accessible"
+      ]
+    },
+    {
+      "id": "US-146",
+      "title": "Scrollbar styling consistency",
+      "description": "Scrollbar styling consistency",
+      "priority": 146,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Scroll through conversation",
+        "Verify scrollbar is styled",
+        "Verify scrollbar is thin",
+        "Verify scrollbar appears on hover"
+      ]
+    },
+    {
+      "id": "US-147",
+      "title": "Selection color styling",
+      "description": "Selection color styling",
+      "priority": 147,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Select text in a message",
+        "Verify selection uses primary color",
+        "Verify selection text is readable",
+        "Verify selection works in code blocks"
+      ]
+    },
+    {
+      "id": "US-148",
+      "title": "Focus ring styling for accessibility",
+      "description": "Focus ring styling for accessibility",
+      "priority": 148,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press Tab to focus elements",
+        "Verify focus ring is visible",
+        "Verify focus ring uses primary color",
+        "Verify focus ring has proper offset"
+      ]
+    },
+    {
+      "id": "US-149",
+      "title": "Skeleton loader styling",
+      "description": "Skeleton loader styling",
+      "priority": 149,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger content loading",
+        "Verify skeleton loader appears",
+        "Verify skeleton has gray color",
+        "Verify skeleton has rounded corners"
+      ]
+    },
+    {
+      "id": "US-150",
+      "title": "Conversation timestamp grouping styling",
+      "description": "Conversation timestamp grouping styling",
+      "priority": 150,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Inspect sidebar date grouping",
+        "Verify date headers are styled",
+        "Verify headers are subtle",
+        "Verify headers have proper spacing"
+      ]
+    },
+    {
+      "id": "US-151",
+      "title": "Share modal styling",
+      "description": "Share modal styling",
+      "priority": 151,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open share modal",
+        "Verify link display field is styled",
+        "Verify copy button is prominent",
+        "Verify options are clearly presented"
+      ]
+    },
+    {
+      "id": "US-152",
+      "title": "Export options modal styling",
+      "description": "Export options modal styling",
+      "priority": 152,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open export modal",
+        "Verify format options are clearly listed",
+        "Verify radio buttons or checkboxes are styled",
+        "Verify export button is prominent"
+      ]
+    },
+    {
+      "id": "US-153",
+      "title": "Command palette styling",
+      "description": "Command palette styling",
+      "priority": 153,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Press Cmd+K",
+        "Verify palette overlay appears",
+        "Verify search input is at top",
+        "Verify command list is scrollable"
+      ]
+    },
+    {
+      "id": "US-154",
+      "title": "Prompt library card styling",
+      "description": "Prompt library card styling",
+      "priority": 154,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open prompt library",
+        "Verify prompt cards are styled",
+        "Verify card hover state",
+        "Verify category badges are styled"
+      ]
+    },
+    {
+      "id": "US-155",
+      "title": "Usage dashboard chart styling",
+      "description": "Usage dashboard chart styling",
+      "priority": 155,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open usage dashboard",
+        "Verify charts render correctly",
+        "Verify chart colors match theme",
+        "Verify chart legends are readable"
+      ]
+    },
+    {
+      "id": "US-156",
+      "title": "Welcome screen styling",
+      "description": "Welcome screen styling",
+      "priority": 156,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start new conversation",
+        "Verify welcome screen is centered",
+        "Verify logo or icon is displayed",
+        "Verify welcome text is styled"
+      ]
+    },
+    {
+      "id": "US-157",
+      "title": "Feature tour tooltip styling",
+      "description": "Feature tour tooltip styling",
+      "priority": 157,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Start feature tour",
+        "Verify tooltip has proper styling",
+        "Verify arrow/pointer points to target",
+        "Verify navigation buttons are styled"
+      ]
+    },
+    {
+      "id": "US-158",
+      "title": "Pinned conversation indicator styling",
+      "description": "Pinned conversation indicator styling",
+      "priority": 158,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Pin a conversation",
+        "Verify pin icon is visible",
+        "Verify icon uses accent color",
+        "Verify pinned section is styled differently"
+      ]
+    },
+    {
+      "id": "US-159",
+      "title": "Unread indicator styling",
+      "description": "Unread indicator styling",
+      "priority": 159,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find conversations with unread indicators",
+        "Verify unread indicator is styled",
+        "Verify indicator uses accent color",
+        "Verify indicator is positioned correctly"
+      ]
+    },
+    {
+      "id": "US-160",
+      "title": "Folder tree view styling",
+      "description": "Folder tree view styling",
+      "priority": 160,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create folders with nested items",
+        "Verify folder icons are styled",
+        "Verify indentation shows hierarchy",
+        "Verify expand/collapse icons are visible"
+      ]
+    },
+    {
+      "id": "US-161",
+      "title": "Artifact type badge styling",
+      "description": "Artifact type badge styling",
+      "priority": 161,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate different artifact types",
+        "Verify type badges are displayed",
+        "Verify each type has distinct color",
+        "Verify badges are positioned correctly"
+      ]
+    },
+    {
+      "id": "US-162",
+      "title": "Full-screen artifact view styling",
+      "description": "Full-screen artifact view styling",
+      "priority": 162,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate an artifact",
+        "Click full-screen toggle",
+        "Verify full-screen has proper background",
+        "Verify code/preview fills screen"
+      ]
+    },
+    {
+      "id": "US-163",
+      "title": "Version selector dropdown styling",
+      "description": "Version selector dropdown styling",
+      "priority": 163,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Generate artifact with versions",
+        "Find version selector",
+        "Verify dropdown is styled consistently",
+        "Verify current version is indicated"
+      ]
+    },
+    {
+      "id": "US-164",
+      "title": "Project color indicator styling",
+      "description": "Project color indicator styling",
+      "priority": 164,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create project with color",
+        "Verify color indicator is visible",
+        "Verify color is used appropriately",
+        "Verify color appears in sidebar"
+      ]
+    },
+    {
+      "id": "US-165",
+      "title": "Custom instruction editor styling",
+      "description": "Custom instruction editor styling",
+      "priority": 165,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open custom instructions",
+        "Verify textarea is styled properly",
+        "Verify character count is shown",
+        "Verify placeholder text is helpful"
+      ]
+    },
+    {
+      "id": "US-166",
+      "title": "Response time indicator styling",
+      "description": "Response time indicator styling",
+      "priority": 166,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send a message",
+        "Verify response time is shown",
+        "Verify time is formatted nicely",
+        "Verify styling is subtle"
+      ]
+    },
+    {
+      "id": "US-167",
+      "title": "Markdown heading hierarchy in messages",
+      "description": "Markdown heading hierarchy in messages",
+      "priority": 167,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with multiple heading levels",
+        "Verify h1 is largest",
+        "Verify h2 is slightly smaller",
+        "Verify h3 is even smaller"
+      ]
+    },
+    {
+      "id": "US-168",
+      "title": "Markdown list styling in messages",
+      "description": "Markdown list styling in messages",
+      "priority": 168,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with bullet list",
+        "Verify bullets are styled properly",
+        "Request response with numbered list",
+        "Verify numbers are styled properly"
+      ]
+    },
+    {
+      "id": "US-169",
+      "title": "Markdown blockquote styling",
+      "description": "Markdown blockquote styling",
+      "priority": 169,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with blockquote",
+        "Verify blockquote has left border",
+        "Verify blockquote has different background",
+        "Verify italic styling is applied"
+      ]
+    },
+    {
+      "id": "US-170",
+      "title": "Markdown table styling",
+      "description": "Markdown table styling",
+      "priority": 170,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with table",
+        "Verify table has borders",
+        "Verify header row is styled differently",
+        "Verify alternating row colors if present"
+      ]
+    },
+    {
+      "id": "US-171",
+      "title": "Keyboard shortcut hint styling",
+      "description": "Keyboard shortcut hint styling",
+      "priority": 171,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find elements with shortcut hints",
+        "Verify shortcut keys are styled as kbd elements",
+        "Verify kbd has border and shadow",
+        "Verify kbd has rounded corners"
+      ]
+    },
+    {
+      "id": "US-172",
+      "title": "Image attachment preview styling",
+      "description": "Image attachment preview styling",
+      "priority": 172,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Attach image to message",
+        "Verify thumbnail is displayed",
+        "Verify thumbnail is properly sized",
+        "Verify remove button is visible"
+      ]
+    },
+    {
+      "id": "US-173",
+      "title": "Displayed image in message styling",
+      "description": "Displayed image in message styling",
+      "priority": 173,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message with image",
+        "Verify image is displayed inline",
+        "Verify image is properly sized",
+        "Verify image has rounded corners"
+      ]
+    },
+    {
+      "id": "US-174",
+      "title": "Stop generation button styling",
+      "description": "Stop generation button styling",
+      "priority": 174,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send long message request",
+        "Verify stop button appears during streaming",
+        "Verify stop button is visually distinct from send",
+        "Verify stop button uses appropriate color"
+      ]
+    },
+    {
+      "id": "US-175",
+      "title": "Regenerate button styling",
+      "description": "Regenerate button styling",
+      "priority": 175,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send a message and wait for response",
+        "Find regenerate button",
+        "Verify button is styled consistently",
+        "Verify hover state"
+      ]
+    },
+    {
+      "id": "US-176",
+      "title": "Edit message button styling",
+      "description": "Edit message button styling",
+      "priority": 176,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send a message and wait for response",
+        "Hover over user message",
+        "Verify edit button appears",
+        "Verify edit button is styled as icon"
+      ]
+    },
+    {
+      "id": "US-177",
+      "title": "Message action menu styling",
+      "description": "Message action menu styling",
+      "priority": 177,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Hover over a message",
+        "Verify action menu icon appears",
+        "Click to open menu",
+        "Verify menu is styled consistently"
+      ]
+    },
+    {
+      "id": "US-178",
+      "title": "Conversation branch indicator styling",
+      "description": "Conversation branch indicator styling",
+      "priority": 178,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Create a branch in conversation",
+        "Verify branch indicator is visible",
+        "Verify indicator shows branch relationship",
+        "Verify indicator is styled subtly"
+      ]
+    },
+    {
+      "id": "US-179",
+      "title": "Resize handle styling for sidebar",
+      "description": "Resize handle styling for sidebar",
+      "priority": 179,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find sidebar resize handle",
+        "Verify handle is visible",
+        "Verify handle has grab cursor",
+        "Hover over handle"
+      ]
+    },
+    {
+      "id": "US-180",
+      "title": "Settings toggle switches",
+      "description": "Settings toggle switches",
+      "priority": 180,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open settings with toggle options",
+        "Find toggle switches",
+        "Verify off position styling",
+        "Verify on position styling"
+      ]
+    },
+    {
+      "id": "US-181",
+      "title": "Language selector dropdown styling",
+      "description": "Language selector dropdown styling",
+      "priority": 181,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find language selector in settings",
+        "Verify dropdown is styled consistently",
+        "Verify selected language is shown",
+        "Verify language options are listed"
+      ]
+    },
+    {
+      "id": "US-182",
+      "title": "Data privacy indicator styling",
+      "description": "Data privacy indicator styling",
+      "priority": 182,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find privacy-related indicators",
+        "Verify indicators are styled appropriately",
+        "Verify icons are clear",
+        "Verify tooltip explains the indicator"
+      ]
+    },
+    {
+      "id": "US-183",
+      "title": "API key input field masking",
+      "description": "API key input field masking",
+      "priority": 183,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find API key input in settings",
+        "Verify input is masked by default",
+        "Find show/hide toggle",
+        "Click to reveal key"
+      ]
+    },
+    {
+      "id": "US-184",
+      "title": "Cost estimation display styling",
+      "description": "Cost estimation display styling",
+      "priority": 184,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find cost estimator in UI",
+        "Verify cost is formatted with currency",
+        "Verify cost is styled prominently",
+        "Verify cost updates in real-time"
+      ]
+    },
+    {
+      "id": "US-185",
+      "title": "Token count display styling",
+      "description": "Token count display styling",
+      "priority": 185,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find token counter",
+        "Verify token count is displayed",
+        "Verify count is formatted nicely",
+        "Verify count is styled subtly"
+      ]
+    },
+    {
+      "id": "US-186",
+      "title": "Context window indicator styling",
+      "description": "Context window indicator styling",
+      "priority": 186,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find context window indicator",
+        "Verify indicator shows limit",
+        "Verify progress bar if available",
+        "Verify styling is consistent"
+      ]
+    },
+    {
+      "id": "US-187",
+      "title": "Model capabilities tooltip styling",
+      "description": "Model capabilities tooltip styling",
+      "priority": 187,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Hover over model in selector",
+        "Verify tooltip appears",
+        "Verify tooltip lists capabilities",
+        "Verify tooltip is styled nicely"
+      ]
+    },
+    {
+      "id": "US-188",
+      "title": "Thinking mode indicator styling",
+      "description": "Thinking mode indicator styling",
+      "priority": 188,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Enable thinking mode if available",
+        "Verify indicator is visible",
+        "Verify indicator is styled distinctly",
+        "Verify indicator doesn't obstruct view"
+      ]
+    },
+    {
+      "id": "US-189",
+      "title": "Voice input button styling",
+      "description": "Voice input button styling",
+      "priority": 189,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Find voice input button if available",
+        "Verify button is styled appropriately",
+        "Verify microphone icon is clear",
+        "Verify active recording state"
+      ]
+    },
+    {
+      "id": "US-190",
+      "title": "Input formatting toolbar styling",
+      "description": "Input formatting toolbar styling",
+      "priority": 190,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Focus on input field",
+        "Verify formatting toolbar appears",
+        "Verify toolbar icons are clear",
+        "Verify icons are evenly spaced"
+      ]
+    },
+    {
+      "id": "US-191",
+      "title": "PWA install prompt styling",
+      "description": "PWA install prompt styling",
+      "priority": 191,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173 on desktop",
+        "Look for PWA install option",
+        "Verify install button is styled",
+        "Verify install prompt is not intrusive"
+      ]
+    },
+    {
+      "id": "US-192",
+      "title": "Responsive sidebar on tablet",
+      "description": "Responsive sidebar on tablet",
+      "priority": 192,
+      "passes": false,
+      "criteria": [
+        "Set viewport to tablet size",
+        "Navigate to http://localhost:5173",
+        "Verify sidebar behavior",
+        "Verify sidebar can be toggled",
+        "Verify chat area is maximized"
+      ]
+    },
+    {
+      "id": "US-193",
+      "title": "Responsive artifact panel on mobile",
+      "description": "Responsive artifact panel on mobile",
+      "priority": 193,
+      "passes": false,
+      "criteria": [
+        "Set viewport to mobile size",
+        "Navigate to http://localhost:5173",
+        "Trigger artifact generation",
+        "Verify artifact panel behavior",
+        "Verify full-screen option is prominent"
+      ]
+    },
+    {
+      "id": "US-194",
+      "title": "Dark mode code blocks",
+      "description": "Dark mode code blocks",
+      "priority": 194,
+      "passes": false,
+      "criteria": [
+        "Switch to dark mode",
+        "Navigate to http://localhost:5173",
+        "Generate code block",
+        "Verify code block has dark theme",
+        "Verify syntax colors are visible"
+      ]
+    },
+    {
+      "id": "US-195",
+      "title": "Light mode code blocks",
+      "description": "Light mode code blocks",
+      "priority": 195,
+      "passes": false,
+      "criteria": [
+        "Switch to light mode",
+        "Navigate to http://localhost:5173",
+        "Generate code block",
+        "Verify code block has light theme",
+        "Verify syntax colors are visible"
+      ]
+    },
+    {
+      "id": "US-196",
+      "title": "Accessibility skip link styling",
+      "description": "Accessibility skip link styling",
+      "priority": 196,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Use keyboard to find skip link",
+        "Verify skip link is visible on focus",
+        "Verify skip link is styled distinctively",
+        "Verify skip link works correctly"
+      ]
+    },
+    {
+      "id": "US-197",
+      "title": "Error message styling",
+      "description": "Error message styling",
+      "priority": 197,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger an error condition",
+        "Verify error message is displayed",
+        "Verify error has red styling",
+        "Verify error is user-friendly"
+      ]
+    },
+    {
+      "id": "US-198",
+      "title": "Success confirmation styling",
+      "description": "Success confirmation styling",
+      "priority": 198,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Complete an action with success feedback",
+        "Verify success message appears",
+        "Verify success has green styling",
+        "Verify success is dismissible"
+      ]
+    },
+    {
+      "id": "US-199",
+      "title": "Warning message styling",
+      "description": "Warning message styling",
+      "priority": 199,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger a warning condition",
+        "Verify warning is displayed",
+        "Verify warning has yellow/orange styling",
+        "Verify warning is noticeable but not alarming"
+      ]
+    },
+    {
+      "id": "US-200",
+      "title": "Loading state overlay styling",
+      "description": "Loading state overlay styling",
+      "priority": 200,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Trigger full-page loading",
+        "Verify overlay covers page",
+        "Verify overlay has semi-transparent background",
+        "Verify spinner is centered"
+      ]
+    },
+    {
+      "id": "US-201",
+      "title": "Backdrop blur effect on modals",
+      "description": "Backdrop blur effect on modals",
+      "priority": 201,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open a modal dialog",
+        "Verify backdrop has blur effect",
+        "Verify blur doesn't affect readability",
+        "Verify content behind is dimmed"
+      ]
+    },
+    {
+      "id": "US-202",
+      "title": "Responsive grid for dashboard widgets",
+      "description": "Responsive grid for dashboard widgets",
+      "priority": 202,
+      "passes": false,
+      "criteria": [
+        "Navigate to usage dashboard",
+        "View on desktop",
+        "Verify widgets are in grid",
+        "Resize to tablet",
+        "Verify grid adapts"
+      ]
+    },
+    {
+      "id": "US-203",
+      "title": "Print styles for conversation export",
+      "description": "Print styles for conversation export",
+      "priority": 203,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Open a conversation",
+        "Use browser print function",
+        "Verify print preview is formatted",
+        "Verify sidebar is hidden"
+      ]
+    },
+    {
+      "id": "US-204",
+      "title": "Image lightbox styling",
+      "description": "Image lightbox styling",
+      "priority": 204,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send/receive message with image",
+        "Click on image",
+        "Verify lightbox opens",
+        "Verify image is centered and large"
+      ]
+    },
+    {
+      "id": "US-205",
+      "title": "LaTeX math equation rendering",
+      "description": "LaTeX math equation rendering",
+      "priority": 205,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send message requesting math",
+        "Request inline math like $E=mc^2$",
+        "Verify inline math renders correctly",
+        "Request block math with $$"
+      ]
+    },
+    {
+      "id": "US-206",
+      "title": "Link styling in messages",
+      "description": "Link styling in messages",
+      "priority": 206,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with links",
+        "Verify links are styled with color",
+        "Verify links have underline on hover",
+        "Verify cursor changes to pointer"
+      ]
+    },
+    {
+      "id": "US-207",
+      "title": "Horizontal rule styling",
+      "description": "Horizontal rule styling",
+      "priority": 207,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with horizontal rules",
+        "Verify hr element is styled",
+        "Verify hr has proper margin",
+        "Verify hr styling matches theme"
+      ]
+    },
+    {
+      "id": "US-208",
+      "title": "Strikethrough text rendering",
+      "description": "Strikethrough text rendering",
+      "priority": 208,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with strikethrough",
+        "Verify strikethrough is rendered",
+        "Verify strikethrough styling matches theme"
+      ]
+    },
+    {
+      "id": "US-209",
+      "title": "Emoji rendering in messages",
+      "description": "Emoji rendering in messages",
+      "priority": 209,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Send/receive message with emoji",
+        "Verify emoji renders correctly",
+        "Verify emoji size is appropriate",
+        "Verify emoji doesn't break layout"
+      ]
+    },
+    {
+      "id": "US-210",
+      "title": "RTL language support styling",
+      "description": "RTL language support styling",
+      "priority": 210,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Change language to Arabic or Hebrew",
+        "Verify layout flips to RTL",
+        "Verify text aligns right",
+        "Verify sidebar is on right side"
+      ]
+    },
+    {
+      "id": "US-211",
+      "title": "Video embedding styling",
+      "description": "Video embedding styling",
+      "priority": 211,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with video embed",
+        "Verify video is embedded properly",
+        "Verify video is responsive",
+        "Verify video controls work"
+      ]
+    },
+    {
+      "id": "US-212",
+      "title": "Audio player styling",
+      "description": "Audio player styling",
+      "priority": 212,
+      "passes": false,
+      "criteria": [
+        "Navigate to http://localhost:5173",
+        "Request response with audio (if supported)",
+        "Verify audio player is styled",
+        "Verify play/pause button works",
+        "Verify progress bar is styled"
+      ]
+    }
+  ]
+}
