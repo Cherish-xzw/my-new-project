@@ -120,7 +120,7 @@
       "Step 9: Verify token count is approximately 1/4 of character count",
       "Step 10: Clear input and verify count resets"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",

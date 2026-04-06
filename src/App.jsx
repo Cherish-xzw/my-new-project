@@ -598,11 +598,9 @@ function App() {
                 rows={1}
                 style={{ minHeight: '24px' }}
               />
-              {input.length > 0 && (
-                <div className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap pb-1">
-                  {input.length} chars · ~{Math.ceil(input.length / 4)} tokens
-                </div>
-              )}
+              <div className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap pb-1">
+                {input.length} chars · ~{Math.ceil(input.length / 4)} tokens
+              </div>
               {isStreaming ? (
                 <button
                   onClick={stopGeneration}
@@ -957,7 +955,7 @@ function ConversationList({ conversations, filteredConversations, searchQuery, c
                 )}
                 <div className="text-sm truncate">{conv.title}</div>
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(conv.updated_at)}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 opacity-0 group-hover:opacity-100" title={new Date(conv.updated_at).toLocaleString()}>{formatDate(conv.updated_at)}</div>
             </div>
             {menuOpenId === conv.id && (
               <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-20">
