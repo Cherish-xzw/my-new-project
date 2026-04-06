@@ -1,4 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const API_BASE = '/api';
 
@@ -9,6 +11,7 @@ function App() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
+  const abortControllerRef = useRef(null);
   const [theme, setTheme] = useState('light');
   const [models, setModels] = useState([]);
   const [selectedModel, setSelectedModel] = useState('claude-sonnet-4-5-20250929');
@@ -77,6 +80,15 @@ function App() {
     localStorage.setItem('theme', newTheme);
   };
 
+  // Auto-resize textarea
+  useEffect(() => {
+    const textarea = document.querySelector('textarea');
+    if (textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(textarea.scrollHeight, 160) + 'px';
+    }
+  }, [input]);
+
   const createNewConversation = async () => {
     try {
       const res = await fetch(`${API_BASE}/conversations`, {
@@ -127,17 +139,22 @@ function App() {
     setIsLoading(true);
     setIsStreaming(true);
 
+    // Create abort controller for stopping
+    abortControllerRef.current = new AbortController();
+
     try {
       const response = await fetch(`${API_BASE}/conversations/${conversationId}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: input })
+        body: JSON.stringify({ content: input }),
+        signal: abortControllerRef.current.signal
       });
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let assistantContent = '';
       let done = false;
+      let wasStopped = false;
 
       // Add placeholder for streaming message
       setMessages(prev => [...prev, {
@@ -175,17 +192,41 @@ function App() {
         }
       }
 
-      // Reload messages to get saved versions
-      await loadMessages(conversationId);
-      await loadConversations();
+      // If stopped, keep the partial response as a regular message
+      if (wasStopped && assistantContent) {
+        // Replace streaming placeholder with actual content
+        setMessages(prev => prev.map((msg, i) =>
+          i === prev.length - 1 && msg.id === 'streaming'
+            ? { ...msg, id: `temp-${Date.now()}`, content: assistantContent }
+            : msg
+        ));
+      } else {
+        // Reload messages to get saved versions
+        await loadMessages(conversationId);
+        await loadConversations();
+      }
 
     } catch (error) {
-      console.error('Failed to send message:', error);
-      setMessages(prev => prev.filter(m => m.id !== 'streaming'));
+      if (error.name === 'AbortError') {
+        // Fetch was aborted - this is expected when stopping
+        wasStopped = true;
+      } else {
+        console.error('Failed to send message:', error);
+        setMessages(prev => prev.filter(m => m.id !== 'streaming'));
+      }
     } finally {
       setIsLoading(false);
       setIsStreaming(false);
+      abortControllerRef.current = null;
     }
+  };
+
+  const stopGeneration = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    setIsStreaming(false);
+    setIsLoading(false);
   };
 
   const handleKeyDown = (e) => {
@@ -372,8 +413,9 @@ function App() {
               />
               {isStreaming ? (
                 <button
-                  onClick={() => setIsStreaming(false)}
+                  onClick={stopGeneration}
                   className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors"
+                  title="Stop generation"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
@@ -469,79 +511,134 @@ function MessageBubble({ message }) {
 
 // Markdown Content Component
 function MarkdownContent({ content, isUser }) {
-  // Simple markdown rendering
-  const renderMarkdown = (text) => {
-    if (!text) return null;
+  const [copiedIndex, setCopiedIndex] = React.useState(null);
 
-    // Split by code blocks first
-    const parts = text.split(/(```[\s\S]*?```)/g);
-
-    return parts.map((part, i) => {
-      // Code block
-      if (part.startsWith('```')) {
-        const match = part.match(/```(\w+)?\n?([\s\S]*?)```/);
-        if (match) {
-          const language = match[1] || 'text';
-          const code = match[2].trim();
-          return (
-            <div key={i} className="my-3 rounded-lg overflow-hidden bg-gray-900 text-gray-100">
-              <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
-                <span className="text-xs text-gray-400">{language}</span>
-                <button
-                  onClick={() => navigator.clipboard.writeText(code)}
-                  className="text-xs text-gray-400 hover:text-white"
-                >
-                  Copy
-                </button>
-              </div>
-              <pre className="p-4 overflow-x-auto text-sm">
-                <code>{code}</code>
-              </pre>
-            </div>
-          );
-        }
-      }
-
-      // Regular text with inline formatting
-      let processed = part;
-
-      // Bold
-      processed = processed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-      // Italic
-      processed = processed.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-      // Inline code
-      processed = processed.replace(/`(.+?)`/g, '<code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm">$1</code>');
-
-      // Links
-      processed = processed.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener" class="text-[#CC785C] hover:underline">$1</a>');
-
-      // Headers
-      processed = processed.replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold mt-4 mb-2">$1</h3>');
-      processed = processed.replace(/^## (.+)$/gm, '<h2 class="text-xl font-semibold mt-4 mb-2">$1</h2>');
-      processed = processed.replace(/^# (.+)$/gm, '<h1 class="text-2xl font-bold mt-4 mb-2">$1</h1>');
-
-      // Lists
-      processed = processed.replace(/^\* (.+)$/gm, '<li class="ml-4">$1</li>');
-      processed = processed.replace(/^- (.+)$/gm, '<li class="ml-4">$1</li>');
-      processed = processed.replace(/^(\d+)\. (.+)$/gm, '<li class="ml-4 list-decimal">$2</li>');
-
-      // Blockquotes
-      processed = processed.replace(/^> (.+)$/gm, '<blockquote class="border-l-3 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400 my-2">$1</blockquote>');
-
-      // Paragraphs
-      processed = processed.split('\n\n').map((p, j) => (
-        <p key={j} className="mb-2" dangerouslySetInnerHTML={{ __html: p }} />
-      ));
-
-      return <div key={i}>{processed}</div>;
-    });
+  const handleCopy = (code, index) => {
+    navigator.clipboard.writeText(code);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
   };
 
+  const components = {
+    code({ node, inline, className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || '');
+      const language = match ? match[1] : '';
+
+      if (!inline && match) {
+        const codeString = String(children).replace(/\n$/, '');
+        const codeIndex = `${language}-${codeString.substring(0, 30)}`;
+        return (
+          <div className="my-3 rounded-lg overflow-hidden bg-[#1e1e1e] text-gray-100">
+            <div className="flex items-center justify-between px-4 py-2 bg-[#2d2d2d] border-b border-gray-700">
+              <span className="text-xs text-gray-400 font-mono">{language}</span>
+              <button
+                onClick={() => handleCopy(codeString, codeIndex)}
+                className="text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-gray-700"
+              >
+                {copiedIndex === codeIndex ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+            <pre className="p-4 overflow-x-auto text-sm">
+              <code className={`language-${language}`} {...props}>
+                {codeString}
+              </code>
+            </pre>
+          </div>
+        );
+      }
+
+      if (inline) {
+        return (
+          <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-[#CC785C] dark:text-orange-400" {...props}>
+            {children}
+          </code>
+        );
+      }
+
+      return (
+        <code className="block bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto text-sm font-mono" {...props}>
+          {children}
+        </code>
+      );
+    },
+    h1({ children }) {
+      return <h1 className="text-2xl font-bold mt-6 mb-3 text-gray-900 dark:text-gray-100">{children}</h1>;
+    },
+    h2({ children }) {
+      return <h2 className="text-xl font-semibold mt-5 mb-3 text-gray-900 dark:text-gray-100">{children}</h2>;
+    },
+    h3({ children }) {
+      return <h3 className="text-lg font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100">{children}</h3>;
+    },
+    p({ children }) {
+      return <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">{children}</p>;
+    },
+    ul({ children }) {
+      return <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700 dark:text-gray-300">{children}</ul>;
+    },
+    ol({ children }) {
+      return <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700 dark:text-gray-300">{children}</ol>;
+    },
+    li({ children }) {
+      return <li className="text-gray-700 dark:text-gray-300">{children}</li>;
+    },
+    blockquote({ children }) {
+      return (
+        <blockquote className="border-l-4 border-[#CC785C] pl-4 my-4 italic text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 py-2 rounded-r">
+          {children}
+        </blockquote>
+      );
+    },
+    a({ href, children }) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#CC785C] hover:text-[#b86a4e] dark:text-orange-400 dark:hover:text-orange-300 underline"
+        >
+          {children}
+        </a>
+      );
+    },
+    strong({ children }) {
+      return <strong className="font-semibold text-gray-900 dark:text-gray-100">{children}</strong>;
+    },
+    em({ children }) {
+      return <em className="italic text-gray-700 dark:text-gray-300">{children}</em>;
+    },
+    hr() {
+      return <hr className="my-6 border-gray-200 dark:border-gray-700" />;
+    },
+    table({ children }) {
+      return (
+        <div className="overflow-x-auto my-4">
+          <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            {children}
+          </table>
+        </div>
+      );
+    },
+    thead({ children }) {
+      return <thead className="bg-gray-50 dark:bg-gray-800">{children}</thead>;
+    },
+    th({ children }) {
+      return <th className="px-4 py-2 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">{children}</th>;
+    },
+    td({ children }) {
+      return <td className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">{children}</td>;
+    },
+  };
+
+  if (isUser) {
+    return <div className="text-sm">{content}</div>;
+  }
+
   return (
-    <div className={`text-sm leading-relaxed ${isUser ? '' : 'markdown-content'}`}>
-      {renderMarkdown(content)}
+    <div className="text-sm leading-relaxed markdown-content">
+      <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }

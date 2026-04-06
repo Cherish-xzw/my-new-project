@@ -31,7 +31,7 @@
       "Step 9: Verify stop button changes back to send state",
       "Step 10: Verify message is saved with partial content"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -50,7 +50,7 @@
       "Step 11: Verify response contains properly rendered code blocks with language badges",
       "Step 12: Verify links are clickable and open in new tab"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -68,7 +68,7 @@
       "Step 10: Paste clipboard content to verify code was copied",
       "Step 11: Verify copied code matches displayed code exactly"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
@@ -86,7 +86,7 @@
       "Step 10: Delete content",
       "Step 11: Verify textarea contracts back to minimum height"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",
