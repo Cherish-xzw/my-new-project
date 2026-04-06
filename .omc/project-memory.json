@@ -1,0 +1,236 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775450462899,
+  "projectRoot": "/private/tmp/autonomous-coding/generations/my-new-project",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "logs": {
+      "path": "logs",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1775450462877,
+      "keyFiles": [
+        "mcp-puppeteer-2026-04-06.log"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 0,
+      "lastAccessed": 1775450462878,
+      "keyFiles": []
+    },
+    "server": {
+      "path": "server",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775450462878,
+      "keyFiles": []
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 0,
+      "lastAccessed": 1775450462878,
+      "keyFiles": []
+    },
+    "server/middleware": {
+      "path": "server/middleware",
+      "purpose": "Middleware",
+      "fileCount": 0,
+      "lastAccessed": 1775450462878,
+      "keyFiles": []
+    },
+    "server/routes": {
+      "path": "server/routes",
+      "purpose": "Route handlers",
+      "fileCount": 0,
+      "lastAccessed": 1775450462879,
+      "keyFiles": []
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1775450462879,
+      "keyFiles": []
+    },
+    "src/pages": {
+      "path": "src/pages",
+      "purpose": "Page components",
+      "fileCount": 0,
+      "lastAccessed": 1775450462879,
+      "keyFiles": []
+    },
+    "src/utils": {
+      "path": "src/utils",
+      "purpose": "Utility functions",
+      "fileCount": 0,
+      "lastAccessed": 1775450462879,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/App.jsx",
+      "accessCount": 107,
+      "lastAccessed": 1775454420285,
+      "type": "file"
+    },
+    {
+      "path": "feature_list.json",
+      "accessCount": 49,
+      "lastAccessed": 1775454311650,
+      "type": "file"
+    },
+    {
+      "path": "claude-progress.txt",
+      "accessCount": 19,
+      "lastAccessed": 1775454311764,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 11,
+      "lastAccessed": 1775453922177,
+      "type": "directory"
+    },
+    {
+      "path": "server/server.js",
+      "accessCount": 10,
+      "lastAccessed": 1775454201928,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 7,
+      "lastAccessed": 1775453894835,
+      "type": "file"
+    },
+    {
+      "path": "app_spec.txt",
+      "accessCount": 7,
+      "lastAccessed": 1775454311711,
+      "type": "file"
+    },
+    {
+      "path": "server/package.json",
+      "accessCount": 5,
+      "lastAccessed": 1775453421870,
+      "type": "file"
+    },
+    {
+      "path": "vite.config.js",
+      "accessCount": 5,
+      "lastAccessed": 1775454019012,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 4,
+      "lastAccessed": 1775453999945,
+      "type": "file"
+    },
+    {
+      "path": "src/main.jsx",
+      "accessCount": 3,
+      "lastAccessed": 1775453402707,
+      "type": "file"
+    },
+    {
+      "path": "src/index.css",
+      "accessCount": 3,
+      "lastAccessed": 1775453462753,
+      "type": "file"
+    },
+    {
+      "path": "tailwind.config.js",
+      "accessCount": 2,
+      "lastAccessed": 1775451194637,
+      "type": "file"
+    },
+    {
+      "path": "postcss.config.js",
+      "accessCount": 2,
+      "lastAccessed": 1775451194694,
+      "type": "file"
+    },
+    {
+      "path": "check-servers.cjs",
+      "accessCount": 2,
+      "lastAccessed": 1775451371945,
+      "type": "file"
+    },
+    {
+      "path": "init.sh",
+      "accessCount": 2,
+      "lastAccessed": 1775453894769,
+      "type": "file"
+    },
+    {
+      "path": "test-api.js",
+      "accessCount": 2,
+      "lastAccessed": 1775454026607,
+      "type": "file"
+    },
+    {
+      "path": "server/.env",
+      "accessCount": 1,
+      "lastAccessed": 1775450530112,
+      "type": "file"
+    },
+    {
+      "path": "check-servers.js",
+      "accessCount": 1,
+      "lastAccessed": 1775451023356,
+      "type": "file"
+    },
+    {
+      "path": "check-health.cjs",
+      "accessCount": 1,
+      "lastAccessed": 1775451042374,
+      "type": "file"
+    },
+    {
+      "path": "logs",
+      "accessCount": 1,
+      "lastAccessed": 1775451265288,
+      "type": "directory"
+    },
+    {
+      "path": "logs/mcp-puppeteer-2026-04-06.log",
+      "accessCount": 1,
+      "lastAccessed": 1775451271195,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
