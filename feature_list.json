@@ -14,7 +14,7 @@
       "Step 9: Verify complete response is displayed with proper formatting",
       "Step 10: Verify conversation is saved to database"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",

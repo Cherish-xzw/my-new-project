@@ -1,0 +1,18 @@
+{
+  "name": "claude-clone-backend",
+  "version": "1.0.0",
+  "description": "Backend server for Claude.ai Clone",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "uuid": "^9.0.1"
+  }
+}
