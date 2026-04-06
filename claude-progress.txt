@@ -303,4 +303,49 @@
 5. Continue with remaining features
 
 ---
+
+## Session 6 - UI Polish (2026-04-06)
+
+### Completed Tasks
+
+1. **Character count always visible**
+   - Fixed character count to show even when input is empty
+   - Shows "0 chars · ~0 tokens" initially
+   - Updates dynamically as user types
+
+2. **Conversation timestamp hover behavior**
+   - Timestamp now shows only on hover (opacity-0 group-hover:opacity-100)
+   - Added title attribute showing full date on hover
+   - Cleaner UI when not hovering over conversations
+
+### Current Status
+- **Tests Passing**: 13/212 (was 12/212)
+- **Tests Failing**: 199/212
+
+### New Tests Passing (Test #7 - revised)
+- Test #7: Character count and token estimation displays correctly (now always visible)
+
+### What Works
+- All features from previous sessions
+- Character count always visible
+- Timestamp shows on hover with tooltip
+
+### What Needs Work
+- View archived conversations (toggle to show)
+- Message editing and regeneration
+- Project management
+- Settings modal
+- Command palette (Cmd+K)
+- Usage tracking dashboard
+- Artifact system
+- And many more...
+
+### Next Session Goals
+1. Implement message editing functionality
+2. Add message regeneration feature
+3. Build settings modal with preferences
+4. Create project management features
+5. Continue with remaining features
+
+---
 Last Updated: 2026-04-06
