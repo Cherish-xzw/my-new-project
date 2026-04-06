@@ -319,7 +319,7 @@
       "Step 9: Verify pinned indicator is removed",
       "Step 10: Verify conversation returns to normal position"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",

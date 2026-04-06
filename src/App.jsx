@@ -275,6 +275,52 @@ function App() {
     }
   };
 
+  const togglePin = async (conv) => {
+    try {
+      const newPinState = !conv.is_pinned;
+      await fetch(`${API_BASE}/conversations/${conv.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_pinned: newPinState })
+      });
+      setConversations(prev => prev.map(c =>
+        c.id === conv.id ? { ...c, is_pinned: newPinState } : c
+      ));
+      if (currentConversation?.id === conv.id) {
+        setCurrentConversation({ ...currentConversation, is_pinned: newPinState });
+      }
+    } catch (error) {
+      console.error('Failed to toggle pin:', error);
+    }
+    setConversationMenuId(null);
+  };
+
+  const toggleArchive = async (conv) => {
+    try {
+      const newArchiveState = !conv.is_archived;
+      await fetch(`${API_BASE}/conversations/${conv.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_archived: newArchiveState })
+      });
+      // Remove from list if archived, otherwise refresh
+      if (newArchiveState) {
+        setConversations(prev => prev.filter(c => c.id !== conv.id));
+        if (currentConversation?.id === conv.id) {
+          setCurrentConversation(null);
+          setMessages([]);
+        }
+      } else {
+        setConversations(prev => prev.map(c =>
+          c.id === conv.id ? { ...c, is_archived: newArchiveState } : c
+        ));
+      }
+    } catch (error) {
+      console.error('Failed to toggle archive:', error);
+    }
+    setConversationMenuId(null);
+  };
+
   const deleteConversation = async (id) => {
     // Show confirmation dialog instead of deleting directly
     setConversationToDelete(id);
@@ -362,6 +408,8 @@ function App() {
             onSelect={selectConversation}
             onDelete={deleteConversation}
             onContextMenu={handleContextMenu}
+            onTogglePin={togglePin}
+            onToggleArchive={toggleArchive}
             menuOpenId={conversationMenuId}
           />
         </div>
@@ -768,7 +816,7 @@ function TypingIndicator() {
 }
 
 // Conversation List Component with Date Grouping
-function ConversationList({ conversations, filteredConversations, searchQuery, currentConversation, onSelect, onDelete, onContextMenu, menuOpenId }) {
+function ConversationList({ conversations, filteredConversations, searchQuery, currentConversation, onSelect, onDelete, onContextMenu, onTogglePin, onToggleArchive, menuOpenId }) {
   const groupConversations = (convs) => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -841,16 +889,16 @@ function ConversationList({ conversations, filteredConversations, searchQuery, c
             {menuOpenId === conv.id && (
               <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-20">
                 <button
-                  onClick={(e) => { e.stopPropagation(); /* TODO: toggle pin */ }}
+                  onClick={(e) => { e.stopPropagation(); onTogglePin(conv); }}
                   className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-lg"
                 >
                   {conv.is_pinned ? 'Unpin' : 'Pin'}
                 </button>
                 <button
-                  onClick={(e) => { e.stopPropagation(); /* TODO: archive */ }}
+                  onClick={(e) => { e.stopPropagation(); onToggleArchive(conv); }}
                   className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  Archive
+                  {conv.is_archived ? 'Unarchive' : 'Archive'}
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); onDelete(conv.id); setConversationMenuId(null); }}
