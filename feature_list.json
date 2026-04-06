@@ -1,0 +1,3192 @@
+[
+  {
+    "category": "functional",
+    "description": "User can send a text message and receive a streaming response from Claude API",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify the application loads with welcome screen",
+      "Step 3: Type 'Hello, how are you?' in the input field",
+      "Step 4: Press Enter or click the send button",
+      "Step 5: Verify the user message appears in chat immediately",
+      "Step 6: Verify typing indicator appears while waiting",
+      "Step 7: Verify streaming response begins appearing word by word",
+      "Step 8: Wait for response completion",
+      "Step 9: Verify complete response is displayed with proper formatting",
+      "Step 10: Verify conversation is saved to database"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Streaming response can be stopped mid-generation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Type a request for a long response (e.g., 'Write a 500 word essay about AI')",
+      "Step 4: Press Enter to send",
+      "Step 5: Verify streaming begins",
+      "Step 6: Click the stop button while response is streaming",
+      "Step 7: Verify streaming stops immediately",
+      "Step 8: Verify partial response is displayed",
+      "Step 9: Verify stop button changes back to send state",
+      "Step 10: Verify message is saved with partial content"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Markdown rendering in assistant messages works correctly",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'Explain the differences between let, const, and var in JavaScript'",
+      "Step 4: Wait for response completion",
+      "Step 5: Verify response contains properly rendered headings",
+      "Step 6: Verify response contains properly rendered bold text",
+      "Step 7: Verify response contains properly rendered italic text",
+      "Step 8: Verify response contains properly rendered bullet/numbered lists",
+      "Step 9: Verify response contains properly rendered blockquotes",
+      "Step 10: Verify response contains properly rendered inline code",
+      "Step 11: Verify response contains properly rendered code blocks with language badges",
+      "Step 12: Verify links are clickable and open in new tab"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Code blocks have syntax highlighting and copy functionality",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'Write a Python function to calculate fibonacci numbers'",
+      "Step 4: Wait for response with code block",
+      "Step 5: Verify code block has syntax highlighting",
+      "Step 6: Verify language badge shows 'python'",
+      "Step 7: Hover over code block to reveal copy button",
+      "Step 8: Click the copy button",
+      "Step 9: Verify 'Copied!' tooltip appears",
+      "Step 10: Paste clipboard content to verify code was copied",
+      "Step 11: Verify copied code matches displayed code exactly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Input textarea auto-resizes as user types",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify initial textarea has default single-line height",
+      "Step 3: Type a short message (under 60 characters)",
+      "Step 4: Verify textarea remains single line",
+      "Step 5: Type until reaching end of line",
+      "Step 6: Verify textarea expands to second line",
+      "Step 7: Continue typing multiple lines",
+      "Step 8: Verify textarea continues to expand vertically",
+      "Step 9: Verify textarea does not expand beyond maximum visible height",
+      "Step 10: Delete content",
+      "Step 11: Verify textarea contracts back to minimum height"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Shift+Enter inserts newline, Enter submits message",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Click on input field to focus",
+      "Step 3: Type 'Line 1'",
+      "Step 4: Press Shift+Enter",
+      "Step 5: Verify cursor moves to new line",
+      "Step 6: Type 'Line 2'",
+      "Step 7: Press Enter without shift",
+      "Step 8: Verify message is sent",
+      "Step 9: Verify input field is cleared",
+      "Step 10: Verify new message appears in chat"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Character count and token estimation displays correctly",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify character count is visible near input",
+      "Step 3: Verify initial count shows 0 or empty",
+      "Step 4: Type a single character",
+      "Step 5: Verify character count updates to 1",
+      "Step 6: Type additional characters",
+      "Step 7: Verify character count increments correctly",
+      "Step 8: Verify token estimation is displayed",
+      "Step 9: Verify token count is approximately 1/4 of character count",
+      "Step 10: Clear input and verify count resets"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Image upload and display in messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Click the attachment button (image icon)",
+      "Step 4: Select an image file from local filesystem",
+      "Step 5: Verify image thumbnail appears in input area",
+      "Step 6: Verify remove button is visible on thumbnail",
+      "Step 7: Click remove button",
+      "Step 8: Verify thumbnail is removed",
+      "Step 9: Re-attach the image",
+      "Step 10: Send message with image",
+      "Step 11: Verify message appears with image displayed inline",
+      "Step 12: Verify image is properly sized and visible",
+      "Step 13: Verify API call includes image data"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Multi-turn conversation maintains context",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'My name is John'",
+      "Step 4: Wait for response",
+      "Step 5: Send message: 'What is my name?'",
+      "Step 6: Verify response correctly recalls 'John'",
+      "Step 7: Send message: 'Remember I like pizza'",
+      "Step 8: Wait for response",
+      "Step 9: Send message: 'What do I like?'",
+      "Step 10: Verify response correctly recalls pizza preference",
+      "Step 11: Send message: 'Create a variable for this in Python'",
+      "Step 12: Verify Claude references the context appropriately"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Message editing functionality works",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'Hello world'",
+      "Step 4: Wait for response",
+      "Step 5: Find edit button on user message",
+      "Step 6: Click edit button",
+      "Step 7: Verify input field contains the message for editing",
+      "Step 8: Modify the text to 'Hello world!'",
+      "Step 9: Submit edited message",
+      "Step 10: Verify original message is marked as edited",
+      "Step 11: Verify Claude responds to edited content",
+      "Step 12: Verify conversation history shows edited version"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Message regeneration functionality works",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'Give me a random number between 1 and 10'",
+      "Step 4: Wait for response and note the number",
+      "Step 5: Find regenerate button on assistant message",
+      "Step 6: Click regenerate button",
+      "Step 7: Verify new response is generated",
+      "Step 8: Verify response may be different (new random number)",
+      "Step 9: Verify regenerate button remains available",
+      "Step 10: Verify conversation structure is maintained"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "New conversation creation works",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify welcome screen or existing conversations",
+      "Step 3: Click 'New Chat' button",
+      "Step 4: Verify new conversation is started",
+      "Step 5: Verify welcome screen appears for new conversation",
+      "Step 6: Verify conversation appears in sidebar",
+      "Step 7: Verify conversation has auto-generated timestamp",
+      "Step 8: Send a message",
+      "Step 9: Verify conversation title is auto-generated",
+      "Step 10: Verify conversation persists after page reload"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation list displays with date grouping",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create multiple conversations (3+) over time",
+      "Step 3: Refresh the page",
+      "Step 4: Verify conversations appear in sidebar",
+      "Step 5: Verify 'Today' section contains today's conversations",
+      "Step 6: Verify 'Yesterday' section exists if applicable",
+      "Step 7: Verify 'Previous 7 Days' section exists if applicable",
+      "Step 8: Verify 'Older' section exists for older conversations",
+      "Step 9: Verify each conversation shows title",
+      "Step 10: Verify each conversation shows relative timestamp on hover"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation switching preserves state",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create conversation A and add messages",
+      "Step 3: Create conversation B and add different messages",
+      "Step 4: Click on conversation A in sidebar",
+      "Step 5: Verify messages from conversation A are displayed",
+      "Step 6: Click on conversation B in sidebar",
+      "Step 7: Verify messages from conversation B are displayed",
+      "Step 8: Click back on conversation A",
+      "Step 9: Verify conversation A messages still display correctly",
+      "Step 10: Verify scroll position is preserved for each conversation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation rename via inline editing",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Verify default auto-generated title",
+      "Step 4: Hover over conversation title in main area",
+      "Step 5: Verify edit icon appears",
+      "Step 6: Click on title or edit icon",
+      "Step 7: Verify title becomes editable input",
+      "Step 8: Clear and type new custom title",
+      "Step 9: Press Enter to save",
+      "Step 10: Verify new title is displayed",
+      "Step 11: Verify new title appears in sidebar",
+      "Step 12: Refresh page and verify title persists"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation deletion with confirmation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Add some messages",
+      "Step 4: Find delete option (context menu or button)",
+      "Step 5: Click delete option",
+      "Step 6: Verify confirmation dialog appears",
+      "Step 7: Click 'Cancel' on confirmation",
+      "Step 8: Verify conversation is not deleted",
+      "Step 9: Click delete option again",
+      "Step 10: Click 'Delete' or 'Confirm'",
+      "Step 11: Verify conversation is removed from sidebar",
+      "Step 12: Verify conversation data is deleted from database"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation search filters list in real-time",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create multiple conversations with different topics",
+      "Step 3: Type in search box: 'Type something unique that exists'",
+      "Step 4: Verify search input receives focus",
+      "Step 5: Type partial match of existing conversation title",
+      "Step 6: Verify list filters to show matching conversations",
+      "Step 7: Verify non-matching conversations are hidden",
+      "Step 8: Clear search input",
+      "Step 9: Verify all conversations are shown again",
+      "Step 10: Search for content within messages",
+      "Step 11: Verify matching conversations are found"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Pin important conversations",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create multiple conversations",
+      "Step 3: Right-click on a conversation",
+      "Step 4: Verify context menu shows 'Pin' option",
+      "Step 5: Click 'Pin' option",
+      "Step 6: Verify conversation shows pinned indicator",
+      "Step 7: Verify pinned conversation appears at top of list",
+      "Step 8: Unpin conversation via context menu",
+      "Step 9: Verify pinned indicator is removed",
+      "Step 10: Verify conversation returns to normal position"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Archive conversations",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a conversation",
+      "Step 3: Right-click on conversation",
+      "Step 4: Select 'Archive' option",
+      "Step 5: Verify conversation disappears from main list",
+      "Step 6: Find 'Archived' section or toggle",
+      "Step 7: Click to show archived conversations",
+      "Step 8: Verify archived conversation appears there",
+      "Step 9: Unarchive the conversation",
+      "Step 10: Verify conversation returns to main list"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Duplicate conversation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a conversation with messages",
+      "Step 3: Right-click on conversation",
+      "Step 4: Select 'Duplicate' option",
+      "Step 5: Verify new conversation is created",
+      "Step 6: Verify new conversation has same title with '(Copy)' suffix",
+      "Step 7: Verify new conversation has same messages",
+      "Step 8: Verify original conversation is unchanged",
+      "Step 9: Verify new conversation has new unique ID"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Export conversation to JSON format",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a conversation with messages",
+      "Step 3: Click export option on conversation",
+      "Step 4: Select 'JSON' format",
+      "Step 5: Verify download initiates",
+      "Step 6: Open downloaded JSON file",
+      "Step 7: Verify JSON contains conversation metadata",
+      "Step 8: Verify JSON contains all messages",
+      "Step 9: Verify JSON contains timestamps",
+      "Step 10: Verify JSON structure is valid"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Export conversation to Markdown format",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a conversation with messages",
+      "Step 3: Click export option on conversation",
+      "Step 4: Select 'Markdown' format",
+      "Step 5: Verify download initiates",
+      "Step 6: Open downloaded Markdown file",
+      "Step 7: Verify file contains conversation title",
+      "Step 8: Verify user messages are formatted with 'User:' prefix",
+      "Step 9: Verify assistant messages are formatted with 'Assistant:' prefix",
+      "Step 10: Verify code blocks are preserved with proper formatting"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Project creation and management",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find project selector or 'New Project' button",
+      "Step 3: Click to create new project",
+      "Step 4: Enter project name",
+      "Step 5: Optionally set project color",
+      "Step 6: Save project",
+      "Step 7: Verify project appears in project list",
+      "Step 8: Select the new project",
+      "Step 9: Create conversation within project",
+      "Step 10: Verify conversation is associated with project",
+      "Step 11: Rename project via settings",
+      "Step 12: Delete project and verify associated conversations remain"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Project-specific custom instructions",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a new project",
+      "Step 3: Open project settings",
+      "Step 4: Find custom instructions field",
+      "Step 5: Add custom instructions: 'Always respond in Spanish'",
+      "Step 6: Save settings",
+      "Step 7: Create new conversation in this project",
+      "Step 8: Send message: 'Hello'",
+      "Step 9: Verify response is in Spanish",
+      "Step 10: Create conversation in different project without custom instructions",
+      "Step 11: Verify responses are in default language"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Move conversations between projects",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create project A and project B",
+      "Step 3: Create conversation in project A",
+      "Step 4: Right-click on conversation",
+      "Step 5: Select 'Move to Project' option",
+      "Step 6: Select project B from dropdown",
+      "Step 7: Verify conversation moves to project B",
+      "Step 8: Verify conversation is no longer in project A",
+      "Step 9: Verify conversation messages are preserved",
+      "Step 10: Verify project A conversation count updates"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Model selection with Claude Sonnet 4.5",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Find model selector dropdown",
+      "Step 4: Verify default model is Claude Sonnet 4.5",
+      "Step 5: Click on model selector",
+      "Step 6: Verify list shows 'Claude Sonnet 4.5' with identifier",
+      "Step 7: Select Claude Sonnet 4.5",
+      "Step 8: Send message asking for model name",
+      "Step 9: Verify response mentions Claude Sonnet",
+      "Step 10: Verify model badge shows correct model"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Model selection with Claude Haiku 4.5",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Click on model selector dropdown",
+      "Step 4: Select 'Claude Haiku 4.5'",
+      "Step 5: Verify selection is saved",
+      "Step 6: Send message asking for response speed comparison",
+      "Step 7: Verify response completes quickly (Haiku characteristic)",
+      "Step 8: Verify model badge updates to show Haiku",
+      "Step 9: Switch to different model",
+      "Step 10: Verify Haiku conversation maintains model preference"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Model selection with Claude Opus 4.1",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Click on model selector dropdown",
+      "Step 4: Select 'Claude Opus 4.1'",
+      "Step 5: Verify selection is saved",
+      "Step 6: Send complex reasoning task",
+      "Step 7: Verify response shows advanced reasoning",
+      "Step 8: Verify model badge shows Opus",
+      "Step 9: Verify context window indicator shows higher limit"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Switch model mid-conversation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start conversation with Claude Sonnet 4.5",
+      "Step 3: Send message: 'What is 2+2?'",
+      "Step 4: Wait for response",
+      "Step 5: Switch model to Claude Opus 4.1",
+      "Step 6: Send follow-up message",
+      "Step 7: Verify response uses new model",
+      "Step 8: Verify conversation history with Sonnet is preserved",
+      "Step 9: Verify new messages continue with Opus"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Model capabilities display on hover",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Click on model selector",
+      "Step 3: Hover over Claude Sonnet 4.5 option",
+      "Step 4: Verify tooltip shows capabilities",
+      "Step 5: Verify context window info is displayed",
+      "Step 6: Hover over Claude Opus 4.1 option",
+      "Step 7: Verify different capabilities info shown",
+      "Step 8: Verify pricing info is displayed"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Global custom instructions are applied",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find custom instructions section",
+      "Step 4: Add global instruction: 'Always sign responses with -AI'",
+      "Step 5: Save settings",
+      "Step 6: Start new conversation",
+      "Step 7: Send message",
+      "Step 8: Verify response ends with '-AI'",
+      "Step 9: Create new conversation without project-specific instructions",
+      "Step 10: Verify global instruction is still applied"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation-specific system prompt override",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Find conversation settings (gear icon or menu)",
+      "Step 4: Find system prompt field",
+      "Step 5: Enter custom system prompt: 'You are a pirate. Speak like a pirate.'",
+      "Step 6: Send message: 'Hello'",
+      "Step 7: Verify response is in pirate voice",
+      "Step 8: Start different conversation without override",
+      "Step 9: Verify normal responses in other conversation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Theme selection: Light mode",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find theme selection",
+      "Step 4: Select 'Light' theme",
+      "Step 5: Verify background is white (#FFFFFF or #F5F5F5)",
+      "Step 6: Verify text is dark (#1A1A1A)",
+      "Step 7: Verify sidebar has light background",
+      "Step 8: Verify chat area has light background",
+      "Step 9: Refresh page and verify theme persists"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Theme selection: Dark mode",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find theme selection",
+      "Step 4: Select 'Dark' theme",
+      "Step 5: Verify background is dark (#1A1A1A)",
+      "Step 6: Verify text is light (#E5E5E5)",
+      "Step 7: Verify sidebar has dark background",
+      "Step 8: Verify chat area has dark background",
+      "Step 9: Verify code blocks have dark theme",
+      "Step 10: Refresh page and verify theme persists"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Theme selection: Auto mode follows system preference",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Select 'Auto' theme",
+      "Step 4: Verify theme matches system preference",
+      "Step 5: Change system theme to dark",
+      "Step 6: Refresh page",
+      "Step 7: Verify application follows system theme",
+      "Step 8: Change system theme to light",
+      "Step 9: Refresh page",
+      "Step 10: Verify application follows light theme"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Font size adjustment setting",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find font size option",
+      "Step 4: Verify current size is indicated",
+      "Step 5: Increase font size",
+      "Step 6: Verify message text size increases",
+      "Step 7: Verify sidebar text size increases",
+      "Step 8: Decrease font size",
+      "Step 9: Verify text size decreases",
+      "Step 10: Verify code blocks maintain readable font size"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Message density settings work",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find message density option",
+      "Step 4: Select 'Compact' mode",
+      "Step 5: Verify messages have reduced spacing",
+      "Step 6: Select 'Comfortable' mode",
+      "Step 7: Verify messages have moderate spacing",
+      "Step 8: Select 'Spacious' mode",
+      "Step 9: Verify messages have increased spacing",
+      "Step 10: Verify all modes maintain readability"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Code theme selection for syntax highlighting",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find code theme option",
+      "Step 4: Select 'Monokai' or different theme",
+      "Step 5: Send message: 'Write a JavaScript hello world'",
+      "Step 6: Verify code block uses selected theme",
+      "Step 7: Change to 'GitHub Dark' theme",
+      "Step 8: Send another code request",
+      "Step 9: Verify new code blocks use new theme",
+      "Step 10: Verify old code blocks update theme"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Temperature control slider adjusts creativity",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open conversation settings",
+      "Step 3: Find temperature control",
+      "Step 4: Set temperature to 0 (deterministic)",
+      "Step 5: Send message twice: 'What is 1+1?'",
+      "Step 6: Verify both responses are identical",
+      "Step 7: Set temperature to 1.0 (balanced)",
+      "Step 8: Send same message twice",
+      "Step 9: Verify responses may differ slightly",
+      "Step 10: Set temperature to max value",
+      "Step 11: Send message and verify more creative output"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Max tokens adjustment limits response length",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open conversation settings",
+      "Step 3: Find max tokens setting",
+      "Step 4: Set max tokens to 50",
+      "Step 5: Send message: 'Write a long story'",
+      "Step 6: Verify response is truncated around 50 tokens",
+      "Step 7: Set max tokens to 500",
+      "Step 8: Send same message",
+      "Step 9: Verify longer response",
+      "Step 10: Verify response doesn't exceed set limit"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Top-p (nucleus sampling) control works",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open conversation settings",
+      "Step 3: Find top-p control",
+      "Step 4: Set top-p to 0.1",
+      "Step 5: Send creative message multiple times",
+      "Step 6: Verify responses are more focused/predictable",
+      "Step 7: Set top-p to 0.9",
+      "Step 8: Send same message",
+      "Step 9: Verify more varied vocabulary and topics",
+      "Step 10: Verify top-p setting is saved per conversation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact detection from Claude response",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message: 'Create a simple HTML page with a red button'",
+      "Step 4: Wait for Claude to generate response",
+      "Step 5: Verify artifact panel opens automatically",
+      "Step 6: Verify artifact contains HTML code",
+      "Step 7: Verify preview tab shows live rendering",
+      "Step 8: Verify code tab shows syntax-highlighted code",
+      "Step 9: Click the red button in preview",
+      "Step 10: Verify button is interactive"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Code artifact viewer with syntax highlighting",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start conversation generating code artifact",
+      "Step 3: Verify artifact panel shows code view",
+      "Step 4: Verify language is detected correctly",
+      "Step 5: Verify syntax highlighting is applied",
+      "Step 6: Verify line numbers are displayed",
+      "Step 7: Click copy button",
+      "Step 8: Verify code is copied to clipboard",
+      "Step 9: Verify line wrapping toggle works",
+      "Step 10: Verify font size adjustment in code view"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "HTML/SVG preview with live rendering",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request HTML artifact: 'Create an SVG of a blue circle'",
+      "Step 3: Verify artifact panel shows preview tab",
+      "Step 4: Click preview tab",
+      "Step 5: Verify SVG renders correctly",
+      "Step 6: Request HTML with CSS animations",
+      "Step 7: Verify CSS animations play in preview",
+      "Step 8: Request HTML with JavaScript interactivity",
+      "Step 9: Verify JavaScript functions work in preview",
+      "Step 10: Verify responsive behavior in preview"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "React component preview",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message: 'Create a simple React counter component'",
+      "Step 3: Verify artifact type is detected as React",
+      "Step 4: Verify preview shows rendered component",
+      "Step 5: Verify increment/decrement buttons work",
+      "Step 6: Verify state changes are reflected in UI",
+      "Step 7: Edit code in artifact editor",
+      "Step 8: Verify preview updates live",
+      "Step 9: Verify JSX syntax highlighting works"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Mermaid diagram rendering",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message: 'Create a Mermaid flowchart showing a user journey'",
+      "Step 3: Verify artifact type is detected as Mermaid",
+      "Step 4: Verify diagram renders correctly",
+      "Step 5: Verify nodes and edges are displayed properly",
+      "Step 6: Verify diagram is responsive",
+      "Step 7: Edit mermaid code",
+      "Step 8: Verify diagram updates live",
+      "Step 9: Verify different diagram types work (sequence, gantt)"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Text document artifacts",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message: 'Write a short story about a robot'",
+      "Step 3: Wait for response",
+      "Step 4: Verify text artifact is created if requested",
+      "Step 5: Verify artifact shows formatted text",
+      "Step 6: Verify download button is available",
+      "Step 7: Download text artifact",
+      "Step 8: Verify file contains correct content"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact editing and re-prompting",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate an HTML artifact",
+      "Step 3: Edit the HTML code directly",
+      "Step 4: Find 'Re-prompt' or update button",
+      "Step 5: Click to send edited code back to Claude",
+      "Step 6: Add instruction: 'Make the button green instead'",
+      "Step 7: Verify Claude responds with updated code",
+      "Step 8: Verify preview reflects changes",
+      "Step 9: Verify edit history is preserved"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Full-screen artifact view",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate an artifact",
+      "Step 3: Find full-screen toggle button",
+      "Step 4: Click full-screen toggle",
+      "Step 5: Verify artifact panel expands to full screen",
+      "Step 6: Verify code or preview is still visible",
+      "Step 7: Verify close button is accessible",
+      "Step 8: Click close or toggle again",
+      "Step 9: Verify panel returns to normal size"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact download functionality",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate a code artifact (e.g., Python file)",
+      "Step 3: Find download button in artifact panel",
+      "Step 4: Click download button",
+      "Step 5: Verify file is downloaded with correct extension",
+      "Step 6: Verify file name is meaningful",
+      "Step 7: Verify file content matches displayed code",
+      "Step 8: Generate HTML artifact and download",
+      "Step 9: Verify file is downloaded as .html"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact versioning and history",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate an artifact",
+      "Step 3: Edit the artifact code",
+      "Step 4: Send re-prompt to generate new version",
+      "Step 5: Find version selector/dropdown",
+      "Step 6: Click to view version history",
+      "Step 7: Select previous version",
+      "Step 8: Verify old version code is displayed",
+      "Step 9: Switch back to latest version",
+      "Step 10: Verify latest version is shown"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Folder creation and organization",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find create folder option",
+      "Step 3: Click to create new folder",
+      "Step 4: Enter folder name",
+      "Step 5: Save folder",
+      "Step 6: Verify folder appears in sidebar",
+      "Step 7: Drag conversation into folder",
+      "Step 8: Verify conversation is nested under folder",
+      "Step 9: Click folder to expand/collapse",
+      "Step 10: Rename folder via right-click menu"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation sharing via link",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create conversation with messages",
+      "Step 3: Find share button",
+      "Step 4: Click share option",
+      "Step 5: Verify share modal opens",
+      "Step 6: Click 'Create shareable link'",
+      "Step 7: Verify unique share token is generated",
+      "Step 8: Copy share link",
+      "Step 9: Open link in new browser/incognito",
+      "Step 10: Verify read-only view of conversation",
+      "Step 11: Verify cannot send messages in shared view"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Share link expiration settings",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a conversation",
+      "Step 3: Open share options",
+      "Step 4: Set expiration to 1 hour",
+      "Step 5: Create shareable link",
+      "Step 6: Verify expiration indicator is shown",
+      "Step 7: Verify link works within expiration time",
+      "Step 8: Open share settings",
+      "Step 9: Set expiration to 'Never'",
+      "Step 10: Verify link works indefinitely"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Revoke shared conversation link",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create and share a conversation",
+      "Step 3: Verify share link works",
+      "Step 4: Open shared conversation management",
+      "Step 5: Find revoke/disable link option",
+      "Step 6: Click revoke",
+      "Step 7: Verify confirmation dialog",
+      "Step 8: Confirm revocation",
+      "Step 9: Try accessing shared link again",
+      "Step 10: Verify link no longer works or shows error"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Prompt library access and usage",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find prompt library access point",
+      "Step 3: Click to open prompt library",
+      "Step 4: Verify library modal or panel opens",
+      "Step 5: Browse available prompts by category",
+      "Step 6: Select a prompt template",
+      "Step 7: Verify prompt is inserted into input",
+      "Step 8: Modify prompt if needed",
+      "Step 9: Send prompt to Claude",
+      "Step 10: Verify response is appropriate for prompt"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Prompt library management",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open prompt library",
+      "Step 3: Find 'Add Prompt' option",
+      "Step 4: Create new prompt with title and template",
+      "Step 5: Set category for prompt",
+      "Step 6: Add tags to prompt",
+      "Step 7: Save prompt",
+      "Step 8: Verify new prompt appears in library",
+      "Step 9: Edit existing prompt",
+      "Step 10: Delete a prompt",
+      "Step 11: Verify prompt is removed from library"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Command palette (Cmd/Ctrl+K) opens",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press Cmd+K (Mac) or Ctrl+K (Windows/Linux)",
+      "Step 3: Verify command palette opens",
+      "Step 4: Verify search input is focused",
+      "Step 5: Type to search commands",
+      "Step 6: Verify filtered list of commands",
+      "Step 7: Press Escape to close",
+      "Step 8: Verify palette closes",
+      "Step 9: Press Cmd+K again",
+      "Step 10: Use arrow keys to navigate",
+      "Step 11: Press Enter to select command"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Command palette actions execute correctly",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press Cmd+K to open palette",
+      "Step 3: Type 'New Chat'",
+      "Step 4: Select 'New Chat' command",
+      "Step 5: Verify new conversation is started",
+      "Step 6: Press Cmd+K",
+      "Step 7: Type 'Settings'",
+      "Step 8: Select 'Open Settings'",
+      "Step 9: Verify settings modal opens",
+      "Step 10: Test another command like 'Toggle Theme'"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Global search across all content",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create conversations with specific searchable content",
+      "Step 3: Open global search (Cmd+K or search icon)",
+      "Step 4: Search for text that exists in a message",
+      "Step 5: Verify matching conversations are found",
+      "Step 6: Verify match context is shown",
+      "Step 7: Click on search result",
+      "Step 8: Verify navigation to that conversation at that message",
+      "Step 9: Search for non-existent text",
+      "Step 10: Verify 'No results' message"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Token usage display per message",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send message and wait for response",
+      "Step 4: Find token usage indicator",
+      "Step 5: Verify input tokens are displayed",
+      "Step 6: Verify output tokens are displayed",
+      "Step 7: Verify total tokens are shown",
+      "Step 8: Send another message",
+      "Step 9: Verify token count increases",
+      "Step 10: Verify cumulative token count is tracked"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation cost estimation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start conversation with Claude Sonnet",
+      "Step 3: Send messages",
+      "Step 4: Find cost estimator",
+      "Step 5: Verify cost is displayed for current conversation",
+      "Step 6: Verify cost is based on token usage",
+      "Step 7: Verify pricing matches model rates",
+      "Step 8: Switch to different model",
+      "Step 9: Verify cost updates based on new model rates"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Usage dashboard displays statistics",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings or usage section",
+      "Step 3: Find 'Usage' or 'Analytics' tab",
+      "Step 4: Click to open usage dashboard",
+      "Step 5: Verify daily usage chart is displayed",
+      "Step 6: Verify monthly usage summary",
+      "Step 7: Verify usage by model breakdown",
+      "Step 8: Verify total cost estimation",
+      "Step 9: Navigate to different time periods",
+      "Step 10: Verify data updates accordingly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Usage warnings when approaching limits",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Configure usage limit in settings",
+      "Step 3: Use application extensively",
+      "Step 4: Approach configured usage limit",
+      "Step 5: Verify warning notification appears",
+      "Step 6: Verify warning shows remaining quota",
+      "Step 7: Verify warning is dismissible",
+      "Step 8: Exceed usage limit",
+      "Step 9: Verify blocking message or upgrade prompt"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "API quota tracking and display",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Access API quota settings",
+      "Step 3: Verify current quota status",
+      "Step 4: Verify quota limit is displayed",
+      "Step 5: Verify used quota percentage",
+      "Step 6: Verify refresh rate information",
+      "Step 7: Verify reset time if applicable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation branching creates new path",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create conversation with messages",
+      "Step 3: Find branch/split option on a message",
+      "Step 4: Click to branch conversation",
+      "Step 5: Verify new conversation branch is created",
+      "Step 6: Verify branch has same messages up to branch point",
+      "Step 7: Verify original conversation is preserved",
+      "Step 8: Add different messages to branch",
+      "Step 9: Verify branch evolves independently",
+      "Step 10: Verify branch is linked to original"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Welcome screen for new users",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173 in fresh browser",
+      "Step 2: Verify welcome screen appears",
+      "Step 3: Verify welcome message explains features",
+      "Step 4: Verify suggested prompts are displayed",
+      "Step 5: Click on a suggested prompt",
+      "Step 6: Verify prompt is inserted and sent",
+      "Step 7: Verify welcome screen is replaced by chat",
+      "Step 8: Start new conversation",
+      "Step 9: Verify welcome screen shows again for fresh conversations"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Feature tour highlights for onboarding",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start application for first time or reset tour",
+      "Step 3: Verify guided tour tooltip appears",
+      "Step 4: Verify first feature is highlighted",
+      "Step 5: Complete the first step",
+      "Step 6: Verify next tooltip appears",
+      "Step 7: Complete all tour steps",
+      "Step 8: Verify tour completion message",
+      "Step 9: Verify tour can be restarted from settings"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Keyboard shortcuts reference modal",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings or help menu",
+      "Step 3: Find 'Keyboard Shortcuts' option",
+      "Step 4: Click to open shortcuts reference",
+      "Step 5: Verify list of all shortcuts is displayed",
+      "Step 6: Verify shortcuts are categorized",
+      "Step 7: Verify shortcuts are accurate and work",
+      "Step 8: Close shortcuts modal",
+      "Step 9: Verify Escape key closes modal"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Full keyboard navigation throughout app",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press Tab to navigate through focusable elements",
+      "Step 3: Verify focus indicator is visible",
+      "Step 4: Navigate to send button",
+      "Step 5: Press Enter to activate",
+      "Step 6: Navigate to conversation list",
+      "Step 7: Use arrow keys to scroll through conversations",
+      "Step 8: Press Enter to select conversation",
+      "Step 9: Navigate to settings with keyboard",
+      "Step 10: Close settings with Escape"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Sidebar collapse and expand on desktop",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify sidebar is visible by default",
+      "Step 3: Find sidebar collapse button",
+      "Step 4: Click collapse button",
+      "Step 5: Verify sidebar slides out of view",
+      "Step 6: Verify chat area expands",
+      "Step 7: Click expand button (now visible)",
+      "Step 8: Verify sidebar slides back in",
+      "Step 9: Verify conversation list state is preserved"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Mobile responsive layout - single column",
+    "steps": [
+      "Step 1: Open browser developer tools",
+      "Step 2: Set viewport to mobile size (375x667)",
+      "Step 3: Navigate to http://localhost:5173",
+      "Step 4: Verify sidebar is hidden by default",
+      "Step 5: Verify hamburger menu is visible",
+      "Step 6: Click hamburger menu",
+      "Step 7: Verify sidebar slides in from left",
+      "Step 8: Verify chat area is full width",
+      "Step 9: Verify input field is accessible",
+      "Step 10: Verify touch targets are appropriately sized"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Mobile responsive layout - tablet size",
+    "steps": [
+      "Step 1: Set viewport to tablet size (768x1024)",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Verify sidebar is partially visible or toggleable",
+      "Step 4: Verify chat area takes most of width",
+      "Step 5: Verify artifact panel overlays on demand",
+      "Step 6: Rotate device orientation",
+      "Step 7: Verify layout adapts appropriately",
+      "Step 8: Verify text is readable without zooming"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Sidebar toggle via hamburger menu on mobile",
+    "steps": [
+      "Step 1: Set viewport to mobile size",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Verify hamburger icon is visible in header",
+      "Step 4: Tap hamburger icon",
+      "Step 5: Verify sidebar slides in smoothly",
+      "Step 6: Tap outside sidebar or close button",
+      "Step 7: Verify sidebar closes",
+      "Step 8: Verify chat area is usable after close"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Accessibility: Screen reader support",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Enable screen reader (VoiceOver/NVDA)",
+      "Step 3: Navigate to chat input",
+      "Step 4: Verify input is announced",
+      "Step 5: Send a message",
+      "Step 6: Verify message is announced",
+      "Step 7: Navigate to conversation list",
+      "Step 8: Verify conversations are announced",
+      "Step 9: Navigate to settings",
+      "Step 10: Verify all elements have proper labels"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Accessibility: ARIA labels and roles",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Use browser accessibility inspector",
+      "Step 3: Check send button has proper ARIA label",
+      "Step 4: Check sidebar has proper role and label",
+      "Step 5: Check conversation items have proper roles",
+      "Step 6: Check model selector has proper ARIA attributes",
+      "Step 7: Check modal dialogs have proper roles",
+      "Step 8: Check all interactive elements are keyboard accessible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Accessibility: High contrast mode support",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Enable high contrast mode in OS settings",
+      "Step 3: Refresh the application",
+      "Step 4: Verify high contrast colors are applied",
+      "Step 5: Verify text is clearly distinguishable",
+      "Step 6: Verify borders are clearly visible",
+      "Step 7: Verify focus indicators are prominent",
+      "Step 8: Verify all interactive elements are identifiable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Accessibility: Reduced motion support",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Enable reduced motion in OS/accessibility settings",
+      "Step 3: Refresh the application",
+      "Step 4: Perform actions that trigger animations",
+      "Step 5: Verify animations are disabled or minimal",
+      "Step 6: Verify content is still fully functional",
+      "Step 7: Verify sidebar toggle works without animation",
+      "Step 8: Verify message appearance is instant"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Focus management for modals",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press button to open modal (e.g., Settings)",
+      "Step 3: Verify focus moves to modal",
+      "Step 4: Verify focus is trapped within modal",
+      "Step 5: Press Tab within modal",
+      "Step 6: Verify focus cycles within modal",
+      "Step 7: Press Escape to close modal",
+      "Step 8: Verify focus returns to trigger element",
+      "Step 9: Verify chat remains functional after modal close"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Settings modal with tabbed interface",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings modal",
+      "Step 3: Verify General tab is selected by default",
+      "Step 4: Click on Theme tab",
+      "Step 5: Verify Theme options are displayed",
+      " Step 6: Click on Keyboard Shortcuts tab",
+      "Step 7: Verify shortcuts list is shown",
+      "Step 8: Click on About tab",
+      "Step 9: Verify about information is displayed",
+      "Step 10: Verify tabs are keyboard navigable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Settings persist across sessions",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Change theme to dark mode",
+      "Step 4: Change font size",
+      "Step 5: Save and close settings",
+      "Step 6: Refresh the page",
+      "Step 7: Verify dark mode is still active",
+      "Step 8: Verify font size setting is preserved",
+      "Step 9: Clear browser storage",
+      "Step 10: Verify settings reset to defaults"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Data export from settings",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find data export option",
+      "Step 4: Click export data",
+      "Step 5: Verify download of all user data",
+      "Step 6: Verify JSON format is valid",
+      "Step 7: Verify all conversations are included",
+      "Step 8: Verify settings are included",
+      "Step 9: Verify prompts are included"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Privacy settings management",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings",
+      "Step 3: Find privacy section",
+      "Step 4: Verify options for data sharing",
+      "Step 5: Toggle opt-in/out options",
+      "Step 6: Save privacy settings",
+      "Step 7: Verify settings are applied",
+      "Step 8: Verify confirmation of changes"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Quick actions menu access",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find quick actions button (lightning or menu icon)",
+      "Step 3: Click to open quick actions",
+      "Step 4: Verify list of quick actions appears",
+      "Step 5: Select an action like 'New Chat'",
+      "Step 6: Verify action is executed",
+      "Step 7: Verify menu closes after action"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Response suggestions appear",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start a new conversation",
+      "Step 3: Send a message asking a question",
+      "Step 4: Wait for response",
+      "Step 5: Verify suggestion chips appear below response",
+      "Step 6: Click on a suggestion",
+      "Step 7: Verify suggestion is sent as message",
+      "Step 8: Verify suggestions update based on context"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Related prompts feature",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start conversation about a topic",
+      "Step 3: Verify related prompts section appears",
+      "Step 4: Verify suggestions are contextually relevant",
+      "Step 5: Click on a related prompt",
+      "Step 6: Verify prompt is sent",
+      "Step 7: Verify suggestions update based on conversation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Loading state during API calls",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message that might take longer",
+      "Step 3: Verify typing indicator appears immediately",
+      "Step 4: Verify spinner or loading animation is shown",
+      "Step 5: Verify input is disabled during loading",
+      "Step 6: Wait for response",
+      "Step 7: Verify loading state ends when response arrives"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Error handling for network failures",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Disconnect from network",
+      "Step 3: Send a message",
+      "Step 4: Verify error message is displayed",
+      "Step 5: Verify error message is user-friendly",
+      "Step 6: Reconnect to network",
+      "Step 7: Verify retry option works",
+      "Step 8: Verify retry sends message successfully"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Error handling for API errors",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Configure invalid API key",
+      "Step 3: Send a message",
+      "Step 4: Verify error message explains the issue",
+      "Step 5: Verify error doesn't crash the app",
+      "Step 6: Fix API key configuration",
+      "Step 7: Verify messages work after fix",
+      "Step 8: Verify error state is clearly indicated"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Rate limiting feedback",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send many rapid messages",
+      "Step 3: Verify rate limiting is applied",
+      "Step 4: Verify user-friendly message about wait time",
+      "Step 5: Wait for rate limit to reset",
+      "Step 6: Verify messages can be sent again",
+      "Step 7: Verify rate limit info in settings"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversation timestamps accuracy",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a new conversation",
+      "Step 3: Verify creation timestamp is accurate",
+      "Step 4: Add messages over time",
+      "Step 5: Verify last updated timestamp updates",
+      "Step 6: Hover over conversation in sidebar",
+      "Step 7: Verify relative time is shown (e.g., '2 hours ago')",
+      "Step 8: Click on timestamp",
+      "Step 9: Verify absolute time is displayed"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "API health check endpoint",
+    "steps": [
+      "Step 1: Navigate to http://localhost:3001/health (backend)",
+      "Step 2: Verify health endpoint responds",
+      "Step 3: Verify JSON response with status",
+      "Step 4: Verify database connection status",
+      "Step 5: Verify API key status",
+      "Step 6: Stop the backend server",
+      "Step 7: Try health endpoint again",
+      "Step 8: Verify error response or timeout"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Backend CORS configuration",
+    "steps": [
+      "Step 1: Verify backend has CORS middleware configured",
+      "Step 2: Make request from frontend origin",
+      "Step 3: Verify CORS headers are present",
+      "Step 4: Verify allowed origins include frontend",
+      "Step 5: Try request from unauthorized origin",
+      "Step 6: Verify request is blocked appropriately"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Database migrations run successfully",
+    "steps": [
+      "Step 1: Check database directory exists",
+      "Step 2: Run database migration script",
+      "Step 3: Verify all tables are created",
+      "Step 4: Verify schema matches specification",
+      "Step 5: Try inserting data into each table",
+      "Step 6: Verify foreign key relationships work",
+      "Step 7: Run migration on fresh database",
+      "Step 8: Verify no duplicate tables or errors"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Authentication endpoints functional",
+    "steps": [
+      "Step 1: Send POST to /api/auth/login",
+      "Step 2: Verify response contains user data",
+      "Step 3: Send GET to /api/auth/me",
+      "Step 4: Verify current user data is returned",
+      "Step 5: Send PUT to /api/auth/profile",
+      "Step 6: Verify profile is updated",
+      "Step 7: Send POST to /api/auth/logout",
+      "Step 8: Verify session is cleared"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Conversations API CRUD operations",
+    "steps": [
+      "Step 1: Send POST to /api/conversations to create",
+      "Step 2: Verify conversation is created with ID",
+      "Step 3: Send GET to /api/conversations",
+      "Step 4: Verify list of conversations returned",
+      "Step 5: Send GET to /api/conversations/:id",
+      "Step 6: Verify single conversation details",
+      "Step 7: Send PUT to update conversation",
+      "Step 8: Verify changes are saved",
+      "Step 9: Send DELETE to remove conversation",
+      "Step 10: Verify conversation is deleted"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Messages API with conversation association",
+    "steps": [
+      "Step 1: Create a conversation",
+      "Step 2: Send POST to /api/conversations/:id/messages",
+      "Step 3: Verify message is created",
+      "Step 4: Send GET to /api/conversations/:id/messages",
+      "Step 5: Verify all messages in conversation",
+      "Step 6: Send PUT to update a message",
+      "Step 7: Verify message is updated",
+      "Step 8: Send DELETE to remove message",
+      "Step 9: Verify message is removed"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "SSE streaming endpoint functional",
+    "steps": [
+      "Step 1: Send GET to /api/messages/stream with conversation ID",
+      "Step 2: Verify SSE connection is established",
+      "Step 3: Verify Content-Type is text/event-stream",
+      "Step 4: Send a message to trigger response",
+      "Step 5: Verify streaming data events",
+      "Step 6: Verify data can be parsed correctly",
+      "Step 7: Verify completion event when done",
+      "Step 8: Verify connection closes properly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Claude API proxy endpoints work",
+    "steps": [
+      "Step 1: Send POST to /api/claude/chat",
+      "Step 2: Verify request is proxied to Claude",
+      "Step 3: Verify response is returned correctly",
+      "Step 4: Send POST to /api/claude/chat/stream",
+      "Step 5: Verify streaming response works",
+      "Step 6: Send GET to /api/claude/models",
+      "Step 7: Verify model list is returned",
+      "Step 8: Verify API key is properly used"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Image upload endpoint",
+    "steps": [
+      "Step 1: Send POST to /api/claude/images/upload",
+      "Step 2: Include image file in request",
+      "Step 3: Verify image is processed",
+      "Step 4: Verify response contains image data",
+      "Step 5: Verify image can be used in chat",
+      "Step 6: Try uploading non-image file",
+      "Step 7: Verify error message is returned"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Projects API endpoints",
+    "steps": [
+      "Step 1: Send POST to /api/projects",
+      "Step 2: Verify project is created",
+      "Step 3: Send GET to /api/projects",
+      "Step 4: Verify projects list",
+      "Step 5: Send GET to /api/projects/:id",
+      "Step 6: Verify project details",
+      "Step 7: Send PUT to update project",
+      "Step 8: Verify changes saved",
+      "Step 9: Send DELETE to remove project",
+      "Step 10: Verify project is deleted"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Project knowledge base endpoint",
+    "steps": [
+      "Step 1: Create a project",
+      "Step 2: Send POST to /api/projects/:id/knowledge",
+      "Step 3: Upload a document",
+      "Step 4: Verify document is stored",
+      "Step 5: Create conversation in project",
+      "Step 6: Ask about content from document",
+      "Step 7: Verify Claude references document content"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifacts API endpoints",
+    "steps": [
+      "Step 1: Create conversation and trigger artifact",
+      "Step 2: Send GET to /api/conversations/:id/artifacts",
+      "Step 3: Verify artifacts list",
+      "Step 4: Send GET to /api/artifacts/:id",
+      "Step 5: Verify artifact details",
+      "Step 6: Send PUT to update artifact",
+      "Step 7: Verify artifact is updated",
+      "Step 8: Send DELETE to remove artifact",
+      "Step 9: Verify artifact is deleted"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact forking functionality",
+    "steps": [
+      "Step 1: Create an artifact",
+      "Step 2: Send POST to /api/artifacts/:id/fork",
+      "Step 3: Verify new artifact is created",
+      "Step 4: Verify new artifact is copy of original",
+      "Step 5: Verify new artifact has new ID",
+      "Step 6: Modify forked artifact",
+      "Step 7: Verify original is unchanged"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Artifact version history endpoint",
+    "steps": [
+      "Step 1: Create an artifact",
+      "Step 2: Update the artifact",
+      "Step 3: Send GET to /api/artifacts/:id/versions",
+      "Step 4: Verify version list is returned",
+      "Step 5: Verify each version has timestamp",
+      "Step 6: Get specific version",
+      "Step 7: Verify version content is correct"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Folders API endpoints",
+    "steps": [
+      "Step 1: Send POST to /api/folders",
+      "Step 2: Verify folder is created",
+      "Step 3: Send GET to /api/folders",
+      "Step 4: Verify folders list with hierarchy",
+      "Step 5: Send PUT to rename folder",
+      "Step 6: Verify folder is renamed",
+      "Step 7: Send DELETE to remove folder",
+      "Step 8: Verify folder is deleted"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Folder items management",
+    "steps": [
+      "Step 1: Create a folder",
+      "Step 2: Create a conversation",
+      "Step 3: Send POST to /api/folders/:id/items",
+      "Step 4: Verify conversation is added to folder",
+      "Step 5: Send DELETE to /api/folders/:id/items/:conversationId",
+      "Step 6: Verify conversation is removed from folder",
+      "Step 7: Verify conversation still exists"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Search API endpoints",
+    "steps": [
+      "Step 1: Create conversations with searchable content",
+      "Step 2: Send GET to /api/search/conversations?q=term",
+      "Step 3: Verify matching conversations",
+      "Step 4: Send GET to /api/search/messages?q=term",
+      "Step 5: Verify matching messages with context",
+      "Step 6: Send GET to /api/search/artifacts?q=term",
+      "Step 7: Verify matching artifacts",
+      "Step 8: Send GET to /api/search/prompts?q=term",
+      "Step 9: Verify matching prompts"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Usage API endpoints",
+    "steps": [
+      "Step 1: Send messages and track usage",
+      "Step 2: Send GET to /api/usage/daily",
+      "Step 3: Verify daily usage breakdown",
+      "Step 4: Send GET to /api/usage/monthly",
+      "Step 5: Verify monthly aggregation",
+      "Step 6: Send GET to /api/usage/by-model",
+      "Step 7: Verify usage split by model",
+      "Step 8: Send GET to /api/usage/conversations/:id",
+      "Step 9: Verify conversation-specific usage"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Settings API endpoints",
+    "steps": [
+      "Step 1: Send GET to /api/settings",
+      "Step 2: Verify current settings returned",
+      "Step 3: Send PUT to /api/settings",
+      "Step 4: Verify settings are updated",
+      "Step 5: Send GET to /api/settings/custom-instructions",
+      "Step 6: Verify custom instructions returned",
+      "Step 7: Send PUT to /api/settings/custom-instructions",
+      "Step 8: Verify instructions are saved"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Prompt library API endpoints",
+    "steps": [
+      "Step 1: Send GET to /api/prompts/library",
+      "Step 2: Verify prompts list returned",
+      "Step 3: Send POST to create new prompt",
+      "Step 4: Verify prompt is created",
+      "Step 5: Send GET to /api/prompts/:id",
+      "Step 6: Verify prompt details",
+      "Step 7: Send PUT to update prompt",
+      "Step 8: Verify prompt is updated",
+      "Step 9: Send DELETE to remove prompt",
+      "Step 10: Verify prompt is deleted"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Prompt categories and examples API",
+    "steps": [
+      "Step 1: Send GET to /api/prompts/categories",
+      "Step 2: Verify categories list",
+      "Step 3: Verify each category has name and count",
+      "Step 4: Send GET to /api/prompts/examples",
+      "Step 5: Verify example prompts returned",
+      "Step 6: Verify examples are appropriate"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Main chat layout centered with proper margins",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open DevTools and inspect chat container",
+      "Step 3: Verify chat area has max-width constraint",
+      "Step 4: Verify chat is horizontally centered",
+      "Step 5: Verify adequate side margins on large screens",
+      "Step 6: Resize to tablet width",
+      "Step 7: Verify layout adjusts properly",
+      "Step 8: Verify chat remains centered"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Message bubbles have proper spacing",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start conversation with multiple messages",
+      "Step 3: Verify user messages are right-aligned",
+      "Step 4: Verify assistant messages are left-aligned",
+      "Step 5: Verify consistent vertical spacing between messages",
+      "Step 6: Verify proper paragraph spacing in messages",
+      "Step 7: Verify no overlap between messages",
+      "Step 8: Verify scroll area works correctly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Color palette matches claude.ai design",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173 in light mode",
+      "Step 2: Verify primary accent is orange/amber (#CC785C)",
+      "Step 3: Verify background is white or near-white",
+      "Step 4: Switch to dark mode",
+      "Step 5: Verify background is dark (#1A1A1A)",
+      "Step 6: Verify surfaces are properly layered",
+      "Step 7: Verify text has proper contrast",
+      "Step 8: Verify borders are subtle but visible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Typography follows design system",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Inspect message text styling",
+      "Step 3: Verify font family is sans-serif system stack",
+      "Step 4: Verify body text is 16px (text-base)",
+      "Step 5: Verify proper line height (leading-relaxed)",
+      "Step 6: Inspect headings",
+      "Step 7: Verify headings are semibold",
+      "Step 8: Inspect code text",
+      "Step 9: Verify code uses monospace font"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Primary button styling matches design",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find primary action buttons (send, create)",
+      "Step 3: Verify buttons have orange/amber background",
+      "Step 4: Verify text is white",
+      "Step 5: Verify buttons are rounded",
+      "Step 6: Hover over button",
+      "Step 7: Verify hover state changes appropriately",
+      "Step 8: Click button and verify active state"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Secondary button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find secondary buttons (cancel, settings)",
+      "Step 3: Verify buttons have border style",
+      "Step 4: Verify no fill or light fill",
+      "Step 5: Hover over button",
+      "Step 6: Verify fill appears on hover",
+      "Step 7: Verify consistent border radius"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Icon button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find icon buttons (sidebar toggle, copy)",
+      "Step 3: Verify icons are square",
+      "Step 4: Verify no visible border by default",
+      "Step 5: Hover over icon button",
+      "Step 6: Verify background appears on hover",
+      "Step 7: Verify icon is centered",
+      "Step 8: Verify disabled state is styled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Input field styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find text inputs",
+      "Step 3: Verify rounded borders",
+      "Step 4: Verify focus ring is visible",
+      "Step 5: Click on input",
+      "Step 6: Verify focus state is clear",
+      "Step 7: Verify placeholder text is gray",
+      "Step 8: Type invalid input",
+      "Step 9: Verify error state styling"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Card component styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find card components (conversation items, modals)",
+      "Step 3: Verify cards have subtle border or shadow",
+      "Step 4: Verify rounded corners (8px)",
+      "Step 5: Verify proper padding",
+      "Step 6: Hover over card",
+      "Step 7: Verify hover state has slight shadow increase",
+      "Step 8: Verify active/selected state"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Sidebar styling and layout",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Inspect sidebar component",
+      "Step 3: Verify sidebar has proper background",
+      "Step 4: Verify 'New Chat' button is prominent",
+      "Step 5: Verify project selector is accessible",
+      "Step 6: Verify search input is styled",
+      "Step 7: Verify conversation list items are styled",
+      "Step 8: Verify settings icon is at bottom",
+      "Step 9: Verify user profile area is styled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Conversation list item styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create multiple conversations",
+      "Step 3: Inspect conversation list items",
+      "Step 4: Verify items have hover state",
+      "Step 5: Verify selected item is highlighted",
+      "Step 6: Verify title truncation works",
+      "Step 7: Verify timestamp styling",
+      "Step 8: Verify active indicator if applicable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Modal dialog styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open a modal (settings, share)",
+      "Step 3: Verify modal has overlay background",
+      "Step 4: Verify modal is centered",
+      "Step 5: Verify modal has rounded corners",
+      "Step 6: Verify header styling",
+      "Step 7: Verify close button position",
+      "Step 8: Verify content area styling",
+      "Step 9: Verify footer/action area styling"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Code block container styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate a code block",
+      "Step 3: Verify code block has dark background",
+      "Step 4: Verify code has proper padding",
+      "Step 5: Verify line numbers are styled",
+      "Step 6: Verify language badge positioning",
+      "Step 7: Verify copy button styling",
+      "Step 8: Verify scrollbar if code is long"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Inline code styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find messages with inline code",
+      "Step 3: Verify inline code has gray background",
+      "Step 4: Verify inline code has rounded corners",
+      "Step 5: Verify inline code has monospace font",
+      "Step 6: Verify inline code has proper padding",
+      "Step 7: Verify inline code doesn't break layout"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Typing indicator animation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send a message",
+      "Step 3: Verify typing indicator appears",
+      "Step 4: Verify dots animation is smooth",
+      "Step 5: Verify animation loops properly",
+      "Step 6: Verify indicator has proper positioning",
+      "Step 7: Verify animation stops when response arrives"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Loading spinner styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger a loading state",
+      "Step 3: Verify spinner is visible",
+      "Step 4: Verify spinner animation is smooth",
+      "Step 5: Verify spinner is properly sized",
+      "Step 6: Verify spinner uses primary color",
+      "Step 7: Verify spinner is centered"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Fade in animation for new messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send a message",
+      "Step 3: Verify user message fades in",
+      "Step 4: Wait for response",
+      "Step 5: Verify assistant message fades in",
+      "Step 6: Verify animation duration is smooth (150-300ms)",
+      "Step 7: Verify animation doesn't block interaction"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Sidebar slide animation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Collapse sidebar",
+      "Step 3: Verify sidebar slides out smoothly",
+      "Step 4: Verify chat area expands smoothly",
+      "Step 5: Expand sidebar",
+      "Step 6: Verify sidebar slides in smoothly",
+      "Step 7: Verify animation duration is appropriate",
+      "Step 8: Verify reduced motion preference is respected"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Artifact panel slide animation",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger artifact generation",
+      "Step 3: Verify artifact panel slides in from right",
+      "Step 4: Verify animation is smooth",
+      "Step 5: Close artifact panel",
+      "Step 6: Verify panel slides out",
+      "Step 7: Verify animation is consistent",
+      "Step 8: Verify reduced motion is respected"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Tooltip styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Hover over element with tooltip",
+      "Step 3: Verify tooltip appears",
+      "Step 4: Verify tooltip has dark background",
+      "Step 5: Verify tooltip has white text",
+      "Step 6: Verify tooltip has rounded corners",
+      "Step 7: Verify tooltip positioning is smart",
+      "Step 8: Verify tooltip has slight shadow"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Dropdown menu styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open a dropdown (model selector)",
+      "Step 3: Verify dropdown has shadow",
+      "Step 4: Verify items have hover state",
+      "Step 5: Verify selected item is highlighted",
+      "Step 6: Verify icons align properly",
+      "Step 7: Verify dropdown has rounded corners",
+      "Step 8: Verify dropdown has border"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Badge styling for model indicator",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Verify model badge is visible",
+      "Step 3: Verify badge has pill shape",
+      "Step 4: Verify badge has subtle background",
+      "Step 5: Verify text is readable",
+      "Step 6: Verify badge positioning",
+      "Step 7: Verify badge updates on model change"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Context menu styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Right-click on conversation",
+      "Step 3: Verify context menu appears",
+      "Step 4: Verify menu has shadow",
+      "Step 5: Verify items have icons",
+      "Step 6: Verify hover state on items",
+      "Step 7: Verify destructive items are styled differently",
+      "Step 8: Verify menu closes on click outside"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Empty state styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create new conversation",
+      "Step 3: Verify welcome/empty state is shown",
+      "Step 4: Verify empty state is centered",
+      "Step 5: Verify illustration or icon is present",
+      "Step 6: Verify text is helpful",
+      "Step 7: Verify suggested prompts are styled",
+      "Step 8: Verify empty state is not cluttered"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Notification toast styling",
+    "steps": [
+      "Step 1: Trigger an action that shows notification",
+      "Step 2: Verify toast appears",
+      "Step 3: Verify toast has proper styling",
+      "Step 4: Verify toast auto-dismisses",
+      "Step 5: Verify dismiss button is styled",
+      "Step 6: Verify error toasts are styled differently",
+      "Step 7: Verify toast doesn't overlap important UI"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Progress bar styling",
+    "steps": [
+      "Step 1: Navigate to usage dashboard",
+      "Step 2: Verify progress bars are visible",
+      "Step 3: Verify bar has rounded ends",
+      "Step 4: Verify fill uses primary color",
+      "Step 5: Verify percentage label is visible",
+      "Step 6: Verify animation on progress update"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Slider/input range styling",
+    "steps": [
+      "Step 1: Navigate to temperature settings",
+      "Step 2: Find slider control",
+      "Step 3: Verify track styling",
+      "Step 4: Verify thumb styling",
+      "Step 5: Drag slider",
+      "Step 6: Verify smooth movement",
+      "Step 7: Verify value updates in real-time",
+      "Step 8: Verify focus state on keyboard navigation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Tabs styling in settings",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings modal",
+      "Step 3: Find tab navigation",
+      "Step 4: Verify active tab is highlighted",
+      "Step 5: Verify inactive tabs are styled differently",
+      "Step 6: Click on different tab",
+      "Step 7: Verify underline or indicator moves",
+      "Step 8: Verify content changes smoothly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Checkbox and toggle styling",
+    "steps": [
+      "Step 1: Navigate to settings with toggles",
+      "Step 2: Find toggle switches",
+      "Step 3: Verify off state styling",
+      "Step 4: Click to toggle on",
+      "Step 5: Verify on state styling",
+      "Step 6: Verify animation on toggle",
+      "Step 7: Verify disabled state styling"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Avatar and profile styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find user avatar in sidebar",
+      "Step 3: Verify avatar is circular",
+      "Step 4: Verify avatar has border",
+      "Step 5: Verify initials fallback is styled",
+      "Step 6: Verify avatar size is appropriate"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Divider and separator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find dividers in UI",
+      "Step 3: Verify divider has subtle color",
+      "Step 4: Verify divider has proper thickness",
+      "Step 5: Verify dividers are used appropriately"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Responsive typography scaling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173 on mobile",
+      "Step 2: Verify text is readable without zooming",
+      "Step 3: Verify headings scale appropriately",
+      "Step 4: Verify body text maintains readability",
+      "Step 5: Switch to tablet",
+      "Step 6: Verify text scales up appropriately",
+      "Step 7: Switch to desktop",
+      "Step 8: Verify text doesn't become too large"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Touch target sizes on mobile",
+    "steps": [
+      "Step 1: Set viewport to mobile size",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Use touch simulation in DevTools",
+      "Step 4: Verify send button is at least 44x44px",
+      "Step 5: Verify sidebar toggle is accessible",
+      "Step 6: Verify conversation items are tappable",
+      "Step 7: Verify no overlapping touch targets"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Scrollbar styling consistency",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Scroll through conversation",
+      "Step 3: Verify scrollbar is styled",
+      "Step 4: Verify scrollbar is thin",
+      "Step 5: Verify scrollbar appears on hover",
+      "Step 6: Verify scrollbar matches theme",
+      "Step 7: Verify scrollbar in code blocks"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Selection color styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Select text in a message",
+      "Step 3: Verify selection uses primary color",
+      "Step 4: Verify selection text is readable",
+      "Step 5: Verify selection works in code blocks"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Focus ring styling for accessibility",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press Tab to focus elements",
+      "Step 3: Verify focus ring is visible",
+      "Step 4: Verify focus ring uses primary color",
+      "Step 5: Verify focus ring has proper offset",
+      "Step 6: Verify focus ring is consistent across elements"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Skeleton loader styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger content loading",
+      "Step 3: Verify skeleton loader appears",
+      "Step 4: Verify skeleton has gray color",
+      "Step 5: Verify skeleton has rounded corners",
+      "Step 6: Verify animation is subtle pulse",
+      "Step 7: Verify skeleton matches content shape"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Conversation timestamp grouping styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Inspect sidebar date grouping",
+      "Step 3: Verify date headers are styled",
+      "Step 4: Verify headers are subtle",
+      "Step 5: Verify headers have proper spacing",
+      "Step 6: Verify uppercase styling for 'Today'"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Share modal styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open share modal",
+      "Step 3: Verify link display field is styled",
+      "Step 4: Verify copy button is prominent",
+      "Step 5: Verify options are clearly presented",
+      "Step 6: Verify close button is accessible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Export options modal styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open export modal",
+      "Step 3: Verify format options are clearly listed",
+      "Step 4: Verify radio buttons or checkboxes are styled",
+      "Step 5: Verify export button is prominent",
+      "Step 6: Verify cancel button is secondary styled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Command palette styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Press Cmd+K",
+      "Step 3: Verify palette overlay appears",
+      "Step 4: Verify search input is at top",
+      "Step 5: Verify command list is scrollable",
+      "Step 6: Verify selected item is highlighted",
+      "Step 7: Verify keyboard hints are shown",
+      "Step 8: Verify close button or Escape hint"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Prompt library card styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open prompt library",
+      "Step 3: Verify prompt cards are styled",
+      "Step 4: Verify card hover state",
+      "Step 5: Verify category badges are styled",
+      "Step 6: Verify preview text is truncated"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Usage dashboard chart styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open usage dashboard",
+      "Step 3: Verify charts render correctly",
+      "Step 4: Verify chart colors match theme",
+      "Step 5: Verify chart legends are readable",
+      "Step 6: Verify chart tooltips are styled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Welcome screen styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start new conversation",
+      "Step 3: Verify welcome screen is centered",
+      "Step 4: Verify logo or icon is displayed",
+      "Step 5: Verify welcome text is styled",
+      "Step 6: Verify suggested prompts are visually appealing",
+      "Step 7: Verify proper spacing between elements"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Feature tour tooltip styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Start feature tour",
+      "Step 3: Verify tooltip has proper styling",
+      "Step 4: Verify arrow/pointer points to target",
+      "Step 5: Verify navigation buttons are styled",
+      "Step 6: Verify skip option is visible",
+      "Step 7: Verify progress indicator"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Pinned conversation indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Pin a conversation",
+      "Step 3: Verify pin icon is visible",
+      "Step 4: Verify icon uses accent color",
+      "Step 5: Verify pinned section is styled differently"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Unread indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find conversations with unread indicators",
+      "Step 3: Verify unread indicator is styled",
+      "Step 4: Verify indicator uses accent color",
+      "Step 5: Verify indicator is positioned correctly",
+      "Step 6: Verify indicator disappears after viewing"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Folder tree view styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create folders with nested items",
+      "Step 3: Verify folder icons are styled",
+      "Step 4: Verify indentation shows hierarchy",
+      "Step 5: Verify expand/collapse icons are visible",
+      "Step 6: Verify hover states work"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Artifact type badge styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate different artifact types",
+      "Step 3: Verify type badges are displayed",
+      "Step 4: Verify each type has distinct color",
+      "Step 5: Verify badges are positioned correctly",
+      "Step 6: Verify badge text is readable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Full-screen artifact view styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate an artifact",
+      "Step 3: Click full-screen toggle",
+      "Step 4: Verify full-screen has proper background",
+      "Step 5: Verify code/preview fills screen",
+      "Step 6: Verify close button is visible",
+      "Step 7: Verify controls are accessible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Version selector dropdown styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Generate artifact with versions",
+      "Step 3: Find version selector",
+      "Step 4: Verify dropdown is styled consistently",
+      "Step 5: Verify current version is indicated",
+      "Step 6: Verify version dates are displayed"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Project color indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create project with color",
+      "Step 3: Verify color indicator is visible",
+      "Step 4: Verify color is used appropriately",
+      "Step 5: Verify color appears in sidebar",
+      "Step 6: Verify color in project selector"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Custom instruction editor styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open custom instructions",
+      "Step 3: Verify textarea is styled properly",
+      "Step 4: Verify character count is shown",
+      "Step 5: Verify placeholder text is helpful",
+      "Step 6: Verify save button is styled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Response time indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send a message",
+      "Step 3: Verify response time is shown",
+      "Step 4: Verify time is formatted nicely",
+      "Step 5: Verify styling is subtle"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Markdown heading hierarchy in messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with multiple heading levels",
+      "Step 3: Verify h1 is largest",
+      "Step 4: Verify h2 is slightly smaller",
+      "Step 5: Verify h3 is even smaller",
+      "Step 6: Verify visual hierarchy is clear",
+      "Step 7: Verify spacing between headings"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Markdown list styling in messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with bullet list",
+      "Step 3: Verify bullets are styled properly",
+      "Step 4: Request response with numbered list",
+      "Step 5: Verify numbers are styled properly",
+      "Step 6: Verify nested lists are indented",
+      "Step 7: Verify list spacing is appropriate"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Markdown blockquote styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with blockquote",
+      "Step 3: Verify blockquote has left border",
+      "Step 4: Verify blockquote has different background",
+      "Step 5: Verify italic styling is applied",
+      "Step 6: Verify proper indentation"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Markdown table styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with table",
+      "Step 3: Verify table has borders",
+      "Step 4: Verify header row is styled differently",
+      "Step 5: Verify alternating row colors if present",
+      "Step 6: Verify table is horizontally scrollable if wide"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Keyboard shortcut hint styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find elements with shortcut hints",
+      "Step 3: Verify shortcut keys are styled as kbd elements",
+      "Step 4: Verify kbd has border and shadow",
+      "Step 5: Verify kbd has rounded corners",
+      "Step 6: Verify kbd is monospace"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Image attachment preview styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Attach image to message",
+      "Step 3: Verify thumbnail is displayed",
+      "Step 4: Verify thumbnail is properly sized",
+      "Step 5: Verify remove button is visible",
+      "Step 6: Verify thumbnail has rounded corners"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Displayed image in message styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message with image",
+      "Step 3: Verify image is displayed inline",
+      "Step 4: Verify image is properly sized",
+      "Step 5: Verify image has rounded corners",
+      "Step 6: Verify image doesn't overflow container",
+      "Step 7: Click to view larger if applicable"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Stop generation button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send long message request",
+      "Step 3: Verify stop button appears during streaming",
+      "Step 4: Verify stop button is visually distinct from send",
+      "Step 5: Verify stop button uses appropriate color",
+      "Step 6: Verify stop button disappears after completion"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Regenerate button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send a message and wait for response",
+      "Step 3: Find regenerate button",
+      "Step 4: Verify button is styled consistently",
+      "Step 5: Verify hover state",
+      "Step 6: Verify icon accompanies text"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Edit message button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send a message and wait for response",
+      "Step 3: Hover over user message",
+      "Step 4: Verify edit button appears",
+      "Step 5: Verify edit button is styled as icon",
+      "Step 6: Click edit button",
+      "Step 7: Verify input field is styled for editing"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Message action menu styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Hover over a message",
+      "Step 3: Verify action menu icon appears",
+      "Step 4: Click to open menu",
+      "Step 5: Verify menu is styled consistently",
+      "Step 6: Verify options are clearly labeled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Conversation branch indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Create a branch in conversation",
+      "Step 3: Verify branch indicator is visible",
+      "Step 4: Verify indicator shows branch relationship",
+      "Step 5: Verify indicator is styled subtly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Resize handle styling for sidebar",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find sidebar resize handle",
+      "Step 3: Verify handle is visible",
+      "Step 4: Verify handle has grab cursor",
+      "Step 5: Hover over handle",
+      "Step 6: Verify handle highlights",
+      "Step 7: Drag handle to resize",
+      "Step 8: Verify smooth resize behavior"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Settings toggle switches",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open settings with toggle options",
+      "Step 3: Find toggle switches",
+      "Step 4: Verify off position styling",
+      "Step 5: Verify on position styling",
+      "Step 6: Verify transition animation",
+      "Step 7: Verify disabled state styling"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Language selector dropdown styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find language selector in settings",
+      "Step 3: Verify dropdown is styled consistently",
+      "Step 4: Verify selected language is shown",
+      "Step 5: Verify language options are listed",
+      "Step 6: Verify language change applies correctly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Data privacy indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find privacy-related indicators",
+      "Step 3: Verify indicators are styled appropriately",
+      "Step 4: Verify icons are clear",
+      "Step 5: Verify tooltip explains the indicator"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "API key input field masking",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find API key input in settings",
+      "Step 3: Verify input is masked by default",
+      "Step 4: Find show/hide toggle",
+      "Step 5: Click to reveal key",
+      "Step 6: Verify key is displayed",
+      "Step 7: Click to hide again",
+      "Step 8: Verify key is masked"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Cost estimation display styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find cost estimator in UI",
+      "Step 3: Verify cost is formatted with currency",
+      "Step 4: Verify cost is styled prominently",
+      "Step 5: Verify cost updates in real-time"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Token count display styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find token counter",
+      "Step 3: Verify token count is displayed",
+      "Step 4: Verify count is formatted nicely",
+      "Step 5: Verify count is styled subtly",
+      "Step 6: Verify count updates appropriately"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Context window indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find context window indicator",
+      "Step 3: Verify indicator shows limit",
+      "Step 4: Verify progress bar if available",
+      "Step 5: Verify styling is consistent",
+      "Step 6: Verify warning state for near limit"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Model capabilities tooltip styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Hover over model in selector",
+      "Step 3: Verify tooltip appears",
+      "Step 4: Verify tooltip lists capabilities",
+      "Step 5: Verify tooltip is styled nicely",
+      "Step 6: Verify tooltip has proper positioning"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Thinking mode indicator styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Enable thinking mode if available",
+      "Step 3: Verify indicator is visible",
+      "Step 4: Verify indicator is styled distinctly",
+      "Step 5: Verify indicator doesn't obstruct view"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Voice input button styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Find voice input button if available",
+      "Step 3: Verify button is styled appropriately",
+      "Step 4: Verify microphone icon is clear",
+      "Step 5: Verify active recording state",
+      "Step 6: Verify disabled state if unsupported"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Input formatting toolbar styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Focus on input field",
+      "Step 3: Verify formatting toolbar appears",
+      "Step 4: Verify toolbar icons are clear",
+      "Step 5: Verify icons are evenly spaced",
+      "Step 6: Verify toolbar is styled consistently"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "PWA install prompt styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173 on desktop",
+      "Step 2: Look for PWA install option",
+      "Step 3: Verify install button is styled",
+      "Step 4: Verify install prompt is not intrusive"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Responsive sidebar on tablet",
+    "steps": [
+      "Step 1: Set viewport to tablet size",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Verify sidebar behavior",
+      "Step 4: Verify sidebar can be toggled",
+      "Step 5: Verify chat area is maximized",
+      "Step 6: Verify toggle button is accessible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Responsive artifact panel on mobile",
+    "steps": [
+      "Step 1: Set viewport to mobile size",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Trigger artifact generation",
+      "Step 4: Verify artifact panel behavior",
+      "Step 5: Verify full-screen option is prominent",
+      "Step 6: Verify close button is accessible"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Dark mode code blocks",
+    "steps": [
+      "Step 1: Switch to dark mode",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Generate code block",
+      "Step 4: Verify code block has dark theme",
+      "Step 5: Verify syntax colors are visible",
+      "Step 6: Verify no contrast issues"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Light mode code blocks",
+    "steps": [
+      "Step 1: Switch to light mode",
+      "Step 2: Navigate to http://localhost:5173",
+      "Step 3: Generate code block",
+      "Step 4: Verify code block has light theme",
+      "Step 5: Verify syntax colors are visible",
+      "Step 6: Verify no contrast issues"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Accessibility skip link styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Use keyboard to find skip link",
+      "Step 3: Verify skip link is visible on focus",
+      "Step 4: Verify skip link is styled distinctively",
+      "Step 5: Verify skip link works correctly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Error message styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger an error condition",
+      "Step 3: Verify error message is displayed",
+      "Step 4: Verify error has red styling",
+      "Step 5: Verify error is user-friendly",
+      "Step 6: Verify error doesn't crash UI"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Success confirmation styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Complete an action with success feedback",
+      "Step 3: Verify success message appears",
+      "Step 4: Verify success has green styling",
+      "Step 5: Verify success is dismissible",
+      "Step 6: Verify success auto-dismisses"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Warning message styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger a warning condition",
+      "Step 3: Verify warning is displayed",
+      "Step 4: Verify warning has yellow/orange styling",
+      "Step 5: Verify warning is noticeable but not alarming"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Loading state overlay styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Trigger full-page loading",
+      "Step 3: Verify overlay covers page",
+      "Step 4: Verify overlay has semi-transparent background",
+      "Step 5: Verify spinner is centered",
+      "Step 6: Verify loading text if shown"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Backdrop blur effect on modals",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open a modal dialog",
+      "Step 3: Verify backdrop has blur effect",
+      "Step 4: Verify blur doesn't affect readability",
+      "Step 5: Verify content behind is dimmed",
+      "Step 6: Verify modal content is sharp"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Responsive grid for dashboard widgets",
+    "steps": [
+      "Step 1: Navigate to usage dashboard",
+      "Step 2: View on desktop",
+      "Step 3: Verify widgets are in grid",
+      "Step 4: Resize to tablet",
+      "Step 5: Verify grid adapts",
+      "Step 6: Resize to mobile",
+      "Step 7: Verify widgets stack vertically"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Print styles for conversation export",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Open a conversation",
+      "Step 3: Use browser print function",
+      "Step 4: Verify print preview is formatted",
+      "Step 5: Verify sidebar is hidden",
+      "Step 6: Verify colors print appropriately",
+      "Step 7: Verify page breaks work"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Image lightbox styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send/receive message with image",
+      "Step 3: Click on image",
+      "Step 4: Verify lightbox opens",
+      "Step 5: Verify image is centered and large",
+      "Step 6: Verify close button is visible",
+      "Step 7: Click outside to close",
+      "Step 8: Verify lightbox closes smoothly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "LaTeX math equation rendering",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send message requesting math",
+      "Step 3: Request inline math like $E=mc^2$",
+      "Step 4: Verify inline math renders correctly",
+      "Step 5: Request block math with $$",
+      "Step 6: Verify block math renders correctly",
+      "Step 7: Verify equations are properly aligned"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Link styling in messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with links",
+      "Step 3: Verify links are styled with color",
+      "Step 4: Verify links have underline on hover",
+      "Step 5: Verify cursor changes to pointer",
+      "Step 6: Verify links open in new tab"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Horizontal rule styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with horizontal rules",
+      "Step 3: Verify hr element is styled",
+      "Step 4: Verify hr has proper margin",
+      "Step 5: Verify hr styling matches theme"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Strikethrough text rendering",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with strikethrough",
+      "Step 3: Verify strikethrough is rendered",
+      "Step 4: Verify strikethrough styling matches theme"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Emoji rendering in messages",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Send/receive message with emoji",
+      "Step 3: Verify emoji renders correctly",
+      "Step 4: Verify emoji size is appropriate",
+      "Step 5: Verify emoji doesn't break layout"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "RTL language support styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Change language to Arabic or Hebrew",
+      "Step 3: Verify layout flips to RTL",
+      "Step 4: Verify text aligns right",
+      "Step 5: Verify sidebar is on right side",
+      "Step 6: Verify input aligns correctly"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Video embedding styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with video embed",
+      "Step 3: Verify video is embedded properly",
+      "Step 4: Verify video is responsive",
+      "Step 5: Verify video controls work",
+      "Step 6: Verify video doesn't overflow"
+    ],
+    "passes": false
+  },
+  {
+    "category": "style",
+    "description": "Audio player styling",
+    "steps": [
+      "Step 1: Navigate to http://localhost:5173",
+      "Step 2: Request response with audio (if supported)",
+      "Step 3: Verify audio player is styled",
+      "Step 4: Verify play/pause button works",
+      "Step 5: Verify progress bar is styled",
+      "Step 6: Verify time display is formatted"
+    ],
+    "passes": false
+  }
+]
