@@ -17,6 +17,12 @@ function App() {
   const [selectedModel, setSelectedModel] = useState('claude-sonnet-4-5-20250929');
   const [showModelSelect, setShowModelSelect] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [conversationMenuId, setConversationMenuId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [editedTitle, setEditedTitle] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [conversationToDelete, setConversationToDelete] = useState(null);
 
   // Load conversations on mount
   useEffect(() => {
@@ -72,6 +78,39 @@ function App() {
   const loadTheme = () => {
     const saved = localStorage.getItem('theme');
     if (saved) setTheme(saved);
+  };
+
+  // Computed: filter conversations based on search query
+  const filteredConversations = searchQuery.trim()
+    ? conversations.filter(conv =>
+        conv.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
+
+  const handleContextMenu = (e, convId) => {
+    e.preventDefault();
+    setConversationMenuId(conversationMenuId === convId ? null : convId);
+  };
+
+  const saveTitle = async () => {
+    if (!currentConversation || !editedTitle.trim()) {
+      setEditingTitle(false);
+      return;
+    }
+    try {
+      await fetch(`${API_BASE}/conversations/${currentConversation.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: editedTitle.trim() })
+      });
+      setCurrentConversation({ ...currentConversation, title: editedTitle.trim() });
+      setConversations(prev => prev.map(c =>
+        c.id === currentConversation.id ? { ...c, title: editedTitle.trim() } : c
+      ));
+    } catch (error) {
+      console.error('Failed to update title:', error);
+    }
+    setEditingTitle(false);
   };
 
   const toggleTheme = () => {
@@ -237,16 +276,30 @@ function App() {
   };
 
   const deleteConversation = async (id) => {
+    // Show confirmation dialog instead of deleting directly
+    setConversationToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!conversationToDelete) return;
     try {
-      await fetch(`${API_BASE}/conversations/${id}`, { method: 'DELETE' });
-      setConversations(prev => prev.filter(c => c.id !== id));
-      if (currentConversation?.id === id) {
+      await fetch(`${API_BASE}/conversations/${conversationToDelete}`, { method: 'DELETE' });
+      setConversations(prev => prev.filter(c => c.id !== conversationToDelete));
+      if (currentConversation?.id === conversationToDelete) {
         setCurrentConversation(null);
         setMessages([]);
       }
     } catch (error) {
       console.error('Failed to delete conversation:', error);
     }
+    setShowDeleteConfirm(false);
+    setConversationToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setConversationToDelete(null);
   };
 
   const selectConversation = (conversation) => {
@@ -276,7 +329,7 @@ function App() {
     <div className="h-screen flex bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100">
       {/* Sidebar */}
       <div className={`${sidebarOpen ? 'w-64' : 'w-0'} flex-shrink-0 bg-gray-100 dark:bg-[#0d0d0d] border-r border-gray-200 dark:border-gray-800 transition-all duration-200 overflow-hidden flex flex-col`}>
-        <div className="p-3">
+        <div className="p-3 space-y-2">
           <button
             onClick={createNewConversation}
             className="w-full flex items-center gap-2 px-4 py-2 bg-[#CC785C] hover:bg-[#b86a4e] text-white rounded-lg font-medium transition-colors"
@@ -286,34 +339,31 @@ function App() {
             </svg>
             New Chat
           </button>
+          <div className="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search conversations..."
+              className="w-full pl-9 pr-3 py-2 text-sm bg-gray-200 dark:bg-gray-800 rounded-lg outline-none focus:ring-2 focus:ring-[#CC785C] placeholder-gray-400"
+            />
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          <div className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
-            Recent Chats
-          </div>
-          {conversations.map(conv => (
-            <div
-              key={conv.id}
-              className={`group px-3 py-2 cursor-pointer flex items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-800 ${
-                currentConversation?.id === conv.id ? 'bg-gray-200 dark:bg-gray-800' : ''
-              }`}
-              onClick={() => selectConversation(conv)}
-            >
-              <div className="flex-1 truncate">
-                <div className="text-sm truncate">{conv.title}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(conv.updated_at)}</div>
-              </div>
-              <button
-                onClick={(e) => { e.stopPropagation(); deleteConversation(conv.id); }}
-                className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-300 dark:hover:bg-gray-700 rounded transition-opacity"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-            </div>
-          ))}
+          <ConversationList
+            conversations={conversations}
+            filteredConversations={filteredConversations}
+            searchQuery={searchQuery}
+            currentConversation={currentConversation}
+            onSelect={selectConversation}
+            onDelete={deleteConversation}
+            onContextMenu={handleContextMenu}
+            menuOpenId={conversationMenuId}
+          />
         </div>
 
         <div className="p-3 border-t border-gray-200 dark:border-gray-800 flex items-center gap-2">
@@ -349,7 +399,36 @@ function App() {
               </svg>
             </button>
             <h1 className="text-lg font-semibold">
-              {currentConversation?.title || 'New Chat'}
+              {editingTitle ? (
+                <input
+                  type="text"
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                  onBlur={saveTitle}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') saveTitle();
+                    if (e.key === 'Escape') {
+                      setEditingTitle(false);
+                      setEditedTitle(currentConversation?.title || '');
+                    }
+                  }}
+                  autoFocus
+                  className="bg-transparent border-b-2 border-[#CC785C] outline-none px-1"
+                />
+              ) : (
+                <span
+                  className="cursor-pointer hover:text-[#CC785C] transition-colors"
+                  onClick={() => {
+                    if (currentConversation) {
+                      setEditingTitle(true);
+                      setEditedTitle(currentConversation.title);
+                    }
+                  }}
+                  title="Click to rename"
+                >
+                  {currentConversation?.title || 'New Chat'}
+                </span>
+              )}
             </h1>
           </div>
 
@@ -411,6 +490,11 @@ function App() {
                 rows={1}
                 style={{ minHeight: '24px' }}
               />
+              {input.length > 0 && (
+                <div className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap pb-1">
+                  {input.length} chars · ~{Math.ceil(input.length / 4)} tokens
+                </div>
+              )}
               {isStreaming ? (
                 <button
                   onClick={stopGeneration}
@@ -438,6 +522,32 @@ function App() {
             </p>
           </div>
         </footer>
+
+        {/* Delete Confirmation Dialog */}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6 max-w-sm w-full mx-4">
+              <h3 className="text-lg font-semibold mb-2">Delete Conversation</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                Are you sure you want to delete this conversation? This action cannot be undone.
+              </p>
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={cancelDelete}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="px-4 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -653,6 +763,158 @@ function TypingIndicator() {
         <span className="w-2 h-2 bg-gray-400 rounded-full typing-dot"></span>
       </div>
       <span className="text-sm text-gray-500 dark:text-gray-400">Claude is thinking...</span>
+    </div>
+  );
+}
+
+// Conversation List Component with Date Grouping
+function ConversationList({ conversations, filteredConversations, searchQuery, currentConversation, onSelect, onDelete, onContextMenu, menuOpenId }) {
+  const groupConversations = (convs) => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const weekAgo = new Date(today);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+
+    const groups = {
+      pinned: [],
+      today: [],
+      yesterday: [],
+      previous7Days: [],
+      older: []
+    };
+
+    convs.forEach(conv => {
+      const convDate = new Date(conv.updated_at);
+      const convDateOnly = new Date(convDate.getFullYear(), convDate.getMonth(), convDate.getDate());
+
+      if (conv.is_pinned) {
+        groups.pinned.push(conv);
+      } else if (convDateOnly.getTime() === today.getTime()) {
+        groups.today.push(conv);
+      } else if (convDateOnly.getTime() === yesterday.getTime()) {
+        groups.yesterday.push(conv);
+      } else if (convDateOnly >= weekAgo) {
+        groups.previous7Days.push(conv);
+      } else {
+        groups.older.push(conv);
+      }
+    });
+
+    return groups;
+  };
+
+  const displayConversations = searchQuery.trim()
+    ? filteredConversations
+    : conversations.filter(c => !c.is_deleted);
+
+  const groups = groupConversations(displayConversations);
+
+  const renderGroup = (title, convs) => {
+    if (convs.length === 0) return null;
+    return (
+      <div key={title} className="mb-2">
+        <div className="px-3 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
+          {title}
+        </div>
+        {convs.map(conv => (
+          <div
+            key={conv.id}
+            className={`group px-3 py-2 cursor-pointer flex items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-800 ${
+              currentConversation?.id === conv.id ? 'bg-gray-200 dark:bg-gray-800' : ''
+            }`}
+            onClick={() => onSelect(conv)}
+            onContextMenu={(e) => onContextMenu(e, conv.id)}
+          >
+            <div className="flex-1 truncate">
+              <div className="flex items-center gap-1">
+                {conv.is_pinned && (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-[#CC785C]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z"/>
+                  </svg>
+                )}
+                <div className="text-sm truncate">{conv.title}</div>
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(conv.updated_at)}</div>
+            </div>
+            {menuOpenId === conv.id && (
+              <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-20">
+                <button
+                  onClick={(e) => { e.stopPropagation(); /* TODO: toggle pin */ }}
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-lg"
+                >
+                  {conv.is_pinned ? 'Unpin' : 'Pin'}
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); /* TODO: archive */ }}
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  Archive
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onDelete(conv.id); setConversationMenuId(null); }}
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-red-500 rounded-b-lg"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+            <button
+              onClick={(e) => { e.stopPropagation(); onDelete(conv.id); }}
+              className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-300 dark:hover:bg-gray-700 rounded transition-opacity"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  if (searchQuery.trim() && filteredConversations.length === 0) {
+    return (
+      <div className="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+        No conversations found
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      {!searchQuery.trim() && (
+        <>
+          {groups.pinned.length > 0 && renderGroup('Pinned', groups.pinned)}
+          {groups.today.length > 0 && renderGroup('Today', groups.today)}
+          {groups.yesterday.length > 0 && renderGroup('Yesterday', groups.yesterday)}
+          {groups.previous7Days.length > 0 && renderGroup('Previous 7 Days', groups.previous7Days)}
+          {groups.older.length > 0 && renderGroup('Older', groups.older)}
+        </>
+      )}
+      {searchQuery.trim() && filteredConversations.map(conv => (
+        <div
+          key={conv.id}
+          className={`group px-3 py-2 cursor-pointer flex items-center justify-between hover:bg-gray-200 dark:hover:bg-gray-800 ${
+            currentConversation?.id === conv.id ? 'bg-gray-200 dark:bg-gray-800' : ''
+          }`}
+          onClick={() => onSelect(conv)}
+        >
+          <div className="flex-1 truncate">
+            <div className="text-sm truncate">{conv.title}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">{formatDate(conv.updated_at)}</div>
+          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(conv.id); }}
+            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-300 dark:hover:bg-gray-700 rounded transition-opacity"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
