@@ -196,4 +196,58 @@
 5. Continue with project management features
 
 ---
-Last Updated: 2026-04-06 14:00
+
+## Session 4 - Pin/Archive Implementation (2026-04-06)
+
+### Completed Tasks
+
+1. **Pin/Unpin functionality**
+   - Added togglePin() function to App.jsx
+   - Calls backend API with is_pinned state
+   - Updates UI when pin state changes
+   - Pinned conversations show in dedicated section
+
+2. **Archive functionality**
+   - Added toggleArchive() function to App.jsx
+   - Calls backend API with is_archived state
+   - Removes archived conversations from main list
+   - Backend supports unarchive (frontend updates state)
+
+3. **Context menu integration**
+   - Wired up Pin/Unpin button in context menu
+   - Wired up Archive/Unarchive button in context menu
+   - Archive button shows correct label based on state
+
+### Current Status
+- **Tests Passing**: 10/212 (was 9/212)
+- **Tests Failing**: 202/212
+
+### New Tests Passing (Test #11)
+- Test #11: Pin important conversations
+
+### What Works
+- All features from previous sessions
+- Pin/Unpin via right-click context menu
+- Archive conversations (removes from list)
+- Conversations persist pinned/archived state
+
+### What Needs Work
+- View archived conversations (toggle to show)
+- Image upload functionality
+- Message editing and regeneration
+- Project management
+- Settings modal
+- Command palette (Cmd+K)
+- Usage tracking dashboard
+- Artifact system
+- And many more...
+
+### Next Session Goals
+1. Add toggle to show/hide archived conversations
+2. Implement image upload functionality
+3. Build settings modal with preferences
+4. Continue with project management features
+5. Message editing and regeneration
+
+---
+Last Updated: 2026-04-06
