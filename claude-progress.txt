@@ -250,4 +250,57 @@
 5. Message editing and regeneration
 
 ---
+
+## Session 5 - Image Upload Implementation (2026-04-06)
+
+### Completed Tasks
+
+1. **Image upload functionality**
+   - Added attachment button (paperclip icon) in input area
+   - File input accepts multiple images (image/*)
+   - Images are read as base64 data URLs using FileReader
+   - Thumbnail preview shows attached images with remove button
+   - Remove button (×) allows removing individual images
+   - Images are included in messages and displayed inline
+   - Images stored in message.images array
+
+2. **Message display with images**
+   - Updated MessageBubble component to display images
+   - Images appear above the message content
+   - Proper styling with rounded corners and max-height
+   - Works for both user and assistant messages
+
+### Current Status
+- **Tests Passing**: 12/212 (was 11/212)
+- **Tests Failing**: 200/212
+
+### New Tests Passing (Test #12)
+- Test #12: Image upload and display in messages
+
+### What Works
+- All features from previous sessions
+- Image attachment button with file picker
+- Image thumbnail preview in input area
+- Remove button on image thumbnails
+- Images sent with messages
+- Images displayed inline in message bubbles
+
+### What Needs Work
+- View archived conversations (toggle to show)
+- Message editing and regeneration
+- Project management
+- Settings modal
+- Command palette (Cmd+K)
+- Usage tracking dashboard
+- Artifact system
+- And many more...
+
+### Next Session Goals
+1. Implement message editing functionality
+2. Add message regeneration feature
+3. Build settings modal with preferences
+4. Create project management features
+5. Continue with remaining features
+
+---
 Last Updated: 2026-04-06

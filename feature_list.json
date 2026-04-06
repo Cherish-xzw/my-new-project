@@ -140,7 +140,7 @@
       "Step 12: Verify image is properly sized and visible",
       "Step 13: Verify API call includes image data"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "category": "functional",

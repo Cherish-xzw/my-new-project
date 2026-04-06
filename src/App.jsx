@@ -23,6 +23,7 @@ function App() {
   const [editedTitle, setEditedTitle] = useState('');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [conversationToDelete, setConversationToDelete] = useState(null);
+  const [attachedImages, setAttachedImages] = useState([]);
 
   // Load conversations on mount
   useEffect(() => {
@@ -170,11 +171,13 @@ function App() {
     const userMessage = {
       id: `temp-${Date.now()}`,
       role: 'user',
-      content: input
+      content: input,
+      images: attachedImages
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+    setAttachedImages([]);
     setIsLoading(true);
     setIsStreaming(true);
 
@@ -185,7 +188,7 @@ function App() {
       const response = await fetch(`${API_BASE}/conversations/${conversationId}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: input }),
+        body: JSON.stringify({ content: input, images: attachedImages }),
         signal: abortControllerRef.current.signal
       });
 
@@ -266,6 +269,29 @@ function App() {
     }
     setIsStreaming(false);
     setIsLoading(false);
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setAttachedImages(prev => [...prev, {
+            id: Date.now() + Math.random(),
+            name: file.name,
+            data: event.target.result,
+            type: file.type
+          }]);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    e.target.value = '';
+  };
+
+  const removeImage = (id) => {
+    setAttachedImages(prev => prev.filter(img => img.id !== id));
   };
 
   const handleKeyDown = (e) => {
@@ -528,7 +554,41 @@ function App() {
         {/* Input Area */}
         <footer className="p-4 border-t border-gray-200 dark:border-gray-800 flex-shrink-0">
           <div className="max-w-3xl mx-auto">
+            {/* Image Preview */}
+            {attachedImages.length > 0 && (
+              <div className="mb-2 flex flex-wrap gap-2">
+                {attachedImages.map(img => (
+                  <div key={img.id} className="relative group">
+                    <img
+                      src={img.data}
+                      alt={img.name}
+                      className="w-16 h-16 object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+                    />
+                    <button
+                      onClick={() => removeImage(img.id)}
+                      className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Remove image"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="relative flex items-end gap-2 bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-3">
+              {/* Attachment Button */}
+              <label className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg cursor-pointer transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -653,6 +713,19 @@ function MessageBubble({ message }) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
       <div className={`max-w-[80%] ${isUser ? 'order-2' : 'order-1'}`}>
+        {/* Display attached images */}
+        {message.images && message.images.length > 0 && (
+          <div className="mb-2 flex flex-wrap gap-2">
+            {message.images.map((img, idx) => (
+              <img
+                key={idx}
+                src={img.data}
+                alt={img.name || 'Uploaded image'}
+                className="max-w-full max-h-64 rounded-lg object-contain"
+              />
+            ))}
+          </div>
+        )}
         <div
           className={`px-4 py-3 rounded-2xl ${
             isUser
