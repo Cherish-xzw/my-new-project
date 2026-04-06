@@ -117,4 +117,83 @@
 5. Polish and optimization
 
 ---
-Last Updated: 2026-04-06 13:15
+
+## Session 3 - Conversation Management (2026-04-06)
+
+### Completed Tasks
+
+1. **Character count and token estimation**
+   - Added character count display near input field
+   - Shows token estimation (~1/4 of character count)
+   - Only visible when input has content
+
+2. **Conversation search**
+   - Added search input with icon in sidebar
+   - Real-time filtering as user types
+   - Searches conversation titles
+   - Shows "No conversations found" when no results
+
+3. **Conversation date grouping**
+   - Conversations grouped by: Pinned, Today, Yesterday, Previous 7 Days, Older
+   - Implemented in ConversationList component
+   - Pins section appears at top when applicable
+
+4. **Right-click context menu**
+   - Context menu with Pin/Archive/Delete options
+   - Opens on right-click on conversation item
+   - Closes on click outside
+
+5. **Inline conversation rename**
+   - Click on conversation title to edit
+   - Press Enter to save, Escape to cancel
+   - Updates both header and sidebar
+   - Persists to backend API
+
+6. **Delete confirmation dialog**
+   - Modal dialog appears before deletion
+   - Cancel button to abort
+   - Delete button to confirm
+   - Conversation only deleted after confirmation
+
+### Current Status
+- **Tests Passing**: 9/212 (was 5/212)
+- **Tests Failing**: 203/212
+
+### New Tests Passing (Tests #6-10)
+- Test #6: Character count and token estimation
+- Test #7: Conversation list with date grouping
+- Test #8: Conversation rename via inline editing
+- Test #9: Conversation deletion with confirmation
+- Test #10: Conversation search filters list in real-time
+
+### What Works
+- All features from Session 2
+- Character count and token estimation
+- Conversation search with real-time filtering
+- Date-grouped conversation list
+- Right-click context menu
+- Inline conversation rename
+- Delete confirmation dialog
+
+### What Needs Work
+- Image upload functionality
+- Multi-turn conversation context
+- Message editing and regeneration
+- Pin/Unpin conversations (backend)
+- Archive/Unarchive conversations (backend)
+- Project management
+- Settings modal
+- Command palette (Cmd+K)
+- Usage tracking dashboard
+- Artifact system
+- And many more...
+
+### Next Session Goals
+1. Implement Pin/Unpin conversation functionality
+2. Implement Archive/Unarchive conversation functionality
+3. Add image upload to messages
+4. Build settings modal with preferences
+5. Continue with project management features
+
+---
+Last Updated: 2026-04-06 14:00
